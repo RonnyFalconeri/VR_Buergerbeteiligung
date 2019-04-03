@@ -7627,6 +7627,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &136641735 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1982875631201947938, guid: 0eb555be886bd9648b3eb41ede367cf1,
+    type: 3}
+  m_PrefabInstance: {fileID: 2126756935}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &136641739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136641735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d26569ac1e67dc4e96df131a3c88455, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainPosition: {fileID: 1502217892}
+  EastPosition: {fileID: 1934269808}
+  WestPosition: {fileID: 1102799101}
+  SouthPosition: {fileID: 914870338}
+  Player: {fileID: 136641735}
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
@@ -8499,6 +8522,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 890904959172053807, guid: 835f601dcb6a9a74480986575ab9b9ef,
     type: 3}
   m_PrefabInstance: {fileID: 711677294}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &914870338 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5056223225367114857, guid: 835f601dcb6a9a74480986575ab9b9ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 1514568491}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &931358038
 PrefabInstance:
@@ -9740,6 +9769,12 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &1102799101 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5056223225367114857, guid: 835f601dcb6a9a74480986575ab9b9ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 5050719549766635645}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1178438797
 GameObject:
   m_ObjectHideFlags: 0
@@ -10194,6 +10229,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1394515058}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1502217892 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5056223225367114857, guid: 835f601dcb6a9a74480986575ab9b9ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 711677294}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1514568491
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10348,7 +10389,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 'East View
+  m_text: 'West View
 
 '
   m_isRightToLeft: 0
@@ -10818,6 +10859,12 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1934269808 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5056223225367114857, guid: 835f601dcb6a9a74480986575ab9b9ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 408085804}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &2085844639
 Mesh:
   m_ObjectHideFlags: 0
@@ -11038,22 +11085,22 @@ PrefabInstance:
     - target: {fileID: 1982875631201947943, guid: 0eb555be886bd9648b3eb41ede367cf1,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1982875631201947943, guid: 0eb555be886bd9648b3eb41ede367cf1,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.7071067
       objectReference: {fileID: 0}
     - target: {fileID: 1982875631201947943, guid: 0eb555be886bd9648b3eb41ede367cf1,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1982875631201947943, guid: 0eb555be886bd9648b3eb41ede367cf1,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.70710695
       objectReference: {fileID: 0}
     - target: {fileID: 1982875631201947943, guid: 0eb555be886bd9648b3eb41ede367cf1,
         type: 3}
@@ -11068,7 +11115,7 @@ PrefabInstance:
     - target: {fileID: 1982875631201947943, guid: 0eb555be886bd9648b3eb41ede367cf1,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -90.00001
       objectReference: {fileID: 0}
     - target: {fileID: 1982875631201947943, guid: 0eb555be886bd9648b3eb41ede367cf1,
         type: 3}
@@ -11079,6 +11126,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 1.6007
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982875631201947941, guid: 0eb555be886bd9648b3eb41ede367cf1,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0eb555be886bd9648b3eb41ede367cf1, type: 3}
