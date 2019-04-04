@@ -833,13 +833,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 233641747}
-  m_LocalRotation: {x: -0.7071068, y: -0.0000010728836, z: 0.0000010728836, w: 0.7071068}
+  m_LocalRotation: {x: -0.000002801026, y: 0.7071066, z: -0.70710707, w: 0.0000036024203}
   m_LocalPosition: {x: 0, y: 0, z: -2.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1431751755}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -89.99999, y: -180, z: 180}
+  m_LocalEulerAnglesHint: {x: 90.00001, y: -360, z: 180.00099}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 41, y: 50.32}
@@ -865,7 +865,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: 944c894cd80dab946b273a970eaba8a6, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -2040,13 +2040,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 591117468}
-  m_LocalRotation: {x: -0.7071068, y: -0.0000010728836, z: 0.0000010728836, w: 0.7071068}
+  m_LocalRotation: {x: -0.0000027880565, y: 0.7071066, z: -0.70710707, w: 0.0000035310973}
   m_LocalPosition: {x: 0, y: 0, z: -2.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2122732503}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -89.99999, y: -180, z: 180}
+  m_LocalEulerAnglesHint: {x: 90.00001, y: -360, z: 180.00099}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 41, y: 50.32}
@@ -2072,7 +2072,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: 185b0d6063e00e240b3c2a5e94373ecc, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -2162,7 +2162,7 @@ PrefabInstance:
     - target: {fileID: 1982875631201947943, guid: 0eb555be886bd9648b3eb41ede367cf1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3
+      value: -11
       objectReference: {fileID: 0}
     - target: {fileID: 1982875631201947943, guid: 0eb555be886bd9648b3eb41ede367cf1,
         type: 3}
@@ -2172,27 +2172,27 @@ PrefabInstance:
     - target: {fileID: 1982875631201947943, guid: 0eb555be886bd9648b3eb41ede367cf1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -60
+      value: -62
       objectReference: {fileID: 0}
     - target: {fileID: 1982875631201947943, guid: 0eb555be886bd9648b3eb41ede367cf1,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1982875631201947943, guid: 0eb555be886bd9648b3eb41ede367cf1,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.70710576
       objectReference: {fileID: 0}
     - target: {fileID: 1982875631201947943, guid: 0eb555be886bd9648b3eb41ede367cf1,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1982875631201947943, guid: 0eb555be886bd9648b3eb41ede367cf1,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071079
       objectReference: {fileID: 0}
     - target: {fileID: 1982875631201947943, guid: 0eb555be886bd9648b3eb41ede367cf1,
         type: 3}
@@ -2207,7 +2207,7 @@ PrefabInstance:
     - target: {fileID: 1982875631201947943, guid: 0eb555be886bd9648b3eb41ede367cf1,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90.00001
       objectReference: {fileID: 0}
     - target: {fileID: 1982875631201947943, guid: 0eb555be886bd9648b3eb41ede367cf1,
         type: 3}
@@ -2419,13 +2419,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 687659551}
-  m_LocalRotation: {x: -0.7071068, y: -0.0000010728836, z: 0.0000010728836, w: 0.7071068}
+  m_LocalRotation: {x: -0.00000333786, y: 0.7071068, z: -0.7071068, w: 0.00000333786}
   m_LocalPosition: {x: 0, y: 0, z: -2.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5431391285190011708}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -89.99999, y: -180, z: 180}
+  m_LocalEulerAnglesHint: {x: 90.00001, y: -360, z: 180.00099}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 41, y: 50.32}
@@ -2511,7 +2511,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: bdded2acab74c16498d648d4a008eda3, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -4984,13 +4984,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1324795606}
-  m_LocalRotation: {x: -0.7071068, y: -0.0000010728836, z: 0.0000010728836, w: 0.7071068}
+  m_LocalRotation: {x: -0.000003080069, y: 0.7071068, z: -0.7071068, w: 0.000003080069}
   m_LocalPosition: {x: 0, y: 0, z: -2.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 575868336}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -89.99999, y: -180, z: 180}
+  m_LocalEulerAnglesHint: {x: 90.00001, y: -360, z: 180.00099}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 41, y: 50.32}
@@ -5016,7 +5016,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: 2be5965dbb6d7b641a6e17c78f096fc5, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -5119,13 +5119,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1328235559}
-  m_LocalRotation: {x: -0.7071068, y: -0.0000010728836, z: 0.0000010728836, w: 0.7071068}
+  m_LocalRotation: {x: -0.0000035166736, y: 0.70710677, z: -0.7071069, w: 0.0000036358829}
   m_LocalPosition: {x: 0, y: 0, z: -2.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 11483080}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -89.99999, y: -180, z: 180}
+  m_LocalEulerAnglesHint: {x: 90.00001, y: -360, z: 180.00099}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 41, y: 50.32}
@@ -5151,7 +5151,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: 4e2f3c0852c596a4082f124a65b204ac, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -6800,13 +6800,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1490922835}
-  m_LocalRotation: {x: -0.7071068, y: -0.0000010728836, z: 0.0000010728836, w: 0.7071068}
+  m_LocalRotation: {x: -0.000003069531, y: 0.7071068, z: -0.7071068, w: 0.000003069531}
   m_LocalPosition: {x: 0, y: 0, z: -2.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 779307033}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -89.99999, y: -180, z: 180}
+  m_LocalEulerAnglesHint: {x: 90, y: -180, z: 360}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 41, y: 50.32}
@@ -6832,7 +6832,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: f75dc3ff16437644e9ed16b07707cc49, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -8180,13 +8180,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1613991383}
-  m_LocalRotation: {x: -0.7071068, y: -0.0000010728836, z: 0.0000010728836, w: 0.7071068}
+  m_LocalRotation: {x: -0.0000009354843, y: -0.7071069, z: 0.70710677, w: 0.0000009429258}
   m_LocalPosition: {x: 0, y: 0, z: -2.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1544276540}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -89.99999, y: -180, z: 180}
+  m_LocalEulerAnglesHint: {x: 90, y: -180, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 41, y: 50.32}
@@ -8212,7 +8212,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: 58088fa3036cae246b7740782179b5dc, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -14033,13 +14033,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2002402583}
-  m_LocalRotation: {x: -0.7071068, y: -0.0000010728836, z: 0.0000010728836, w: 0.7071068}
+  m_LocalRotation: {x: -0.0000030273854, y: 0.7071068, z: -0.7071068, w: 0.0000030273854}
   m_LocalPosition: {x: 0, y: 0, z: -2.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1382206537}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -89.99999, y: -180, z: 180}
+  m_LocalEulerAnglesHint: {x: 90, y: -180, z: 360}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 41, y: 50.32}
@@ -14065,7 +14065,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: 17d6693013ad64e429595d6a300aef5f, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
