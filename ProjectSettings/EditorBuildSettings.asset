@@ -9,9 +9,15 @@ EditorBuildSettings:
     path: Assets/Scenes/LoginMenu.unity
     guid: 41c9380874e3dbb4e818506e17365c42
   - enabled: 1
+    path: Assets/Scenes/LobbyMenu.unity
+    guid: e94920baa9b43e642a648049412e5b9a
+  - enabled: 1
     path: Assets/Scenes/Presentation.unity
     guid: 040235f48b9b3ae419e826ade130de56
   - enabled: 1
-    path: Assets/Scenes/LobbyMenu.unity
-    guid: e94920baa9b43e642a648049412e5b9a
+    path: Assets/Scenes/Foyer.unity
+    guid: 663ef632722732543ab96cca41f18665
+  - enabled: 1
+    path: Assets/Scenes/Meeting.unity
+    guid: b78a5548cecf956428b3fcea44a3c7b4
   m_configObjects: {}
