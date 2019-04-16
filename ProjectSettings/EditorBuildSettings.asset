@@ -6,9 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/StartMenu.unity
-    guid: b66ff3a47f3db82489a44d1304723ef1
-  - enabled: 1
     path: Assets/Scenes/LobbyMenu.unity
     guid: e94920baa9b43e642a648049412e5b9a
   - enabled: 1
@@ -20,7 +17,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Meeting.unity
     guid: b78a5548cecf956428b3fcea44a3c7b4
-  - enabled: 1
-    path: Assets/Scenes/LoginMenu.unity
-    guid: 41c9380874e3dbb4e818506e17365c42
   m_configObjects: {}

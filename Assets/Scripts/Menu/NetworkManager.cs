@@ -1,6 +1,5 @@
 ﻿using Photon.Pun;
 using Photon.Realtime;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -13,7 +12,7 @@ namespace VRRoom
         [Header("Join Room Panel")]
         public GameObject panelJoinRoom;
         public GameObject objRoomListContent;
-        //public GameObject RoomListEntryPrefab;
+        public GameObject objRoomListEntryPrefab;
         public Button btnSwitchToLogin;
         public Button btnSwitchToCreate;
         public Button btnReconnect;
@@ -33,14 +32,21 @@ namespace VRRoom
         public bool isJoining;
         public bool isLoggedIn;
 
+        private Dictionary<string, RoomInfo> cachedRoomList;
+        private Dictionary<string, GameObject> roomListEntries;
+
         // Start is called before the first frame update
         void Start()
         {
-            switchToPanel("panelLobby");
+            cachedRoomList = new Dictionary<string, RoomInfo>();
+            roomListEntries = new Dictionary<string, GameObject>();
             isConnecting = false;
             isConnected = false;
             isJoining = false;
             isLoggedIn = false;
+
+            switchToPanel("panelLobby");
+            
             // establish server connection
             ConnectToMaster();
         }
@@ -105,14 +111,18 @@ namespace VRRoom
         public override void OnRoomListUpdate(List<RoomInfo> roomList)
         {
             base.OnRoomListUpdate(roomList);
-            Debug.Log("roomlistupdate");
-            foreach (RoomInfo room in roomList)
-            {
-                Debug.Log(room.Name);
-                string entry = room.Name + " | " + "Players: " + room.PlayerCount;
-            }
+
+            ClearRoomListView();
+            UpdateCachedRoomList(roomList);
+            UpdateRoomListView();
         }
 
+        public override void OnLeftLobby()
+        {
+            cachedRoomList.Clear();
+
+            ClearRoomListView();
+        }
 
         public void OnClickCreateRoom()
         {
@@ -140,7 +150,7 @@ namespace VRRoom
                     break;
             }
 
-            // TODO check if roomname exists
+            // TODO check if roomname already exists
             PhotonNetwork.CreateRoom(inpRoomName.text, new RoomOptions{ MaxPlayers = 20, CustomRoomPropertiesForLobby = properties});
         }
 
@@ -188,6 +198,74 @@ namespace VRRoom
             base.OnJoinRoomFailed(returnCode, message);
             Debug.Log(message);
             isJoining = false;
+        }
+
+        private void UpdateCachedRoomList(List<RoomInfo> roomList)
+        {
+            foreach ( RoomInfo roomInfo in roomList )
+            {
+                Debug.Log("room found: " + roomInfo.Name + " | " + "Players: " + roomInfo.PlayerCount);
+                if ( (false == roomInfo.IsOpen) || (false == roomInfo.IsVisible) || (roomInfo.RemovedFromList) )
+                {
+                    // room must not be in cached list (anymore)
+                    if ( cachedRoomList.ContainsKey(roomInfo.Name) )
+                    {
+                        cachedRoomList.Remove(roomInfo.Name);
+                    }
+                    continue;
+                }
+
+                // Update cached room info
+                if (cachedRoomList.ContainsKey(roomInfo.Name))
+                {
+                    cachedRoomList[roomInfo.Name] = roomInfo;
+                }
+                // Add new room
+                else
+                {
+                    cachedRoomList.Add(roomInfo.Name, roomInfo);
+                }
+            }
+        }
+
+        private void ClearRoomListView()
+        {
+            Debug.Log("clear room list");
+            foreach (GameObject entry in roomListEntries.Values)
+            {
+                Destroy(entry.gameObject);
+            }
+            roomListEntries.Clear();
+        }
+
+        // just for testing
+        private void simulateRooms()
+        {
+            GameObject entry = Instantiate(objRoomListEntryPrefab);
+            entry.transform.SetParent(objRoomListContent.transform);
+            entry.transform.localScale = Vector3.one;
+            // We have to set z-coordinate explicitly to zero because it somehow has a random value after creation
+            // and as a result the component is not visible (because of 2D view)
+            entry.transform.localPosition = new Vector3(entry.transform.position.x, entry.transform.position.y, 0f);
+            entry.GetComponent<RoomListEntry>().Initialize("test", (byte)5, 20, false); 
+        }
+
+        private void UpdateRoomListView()
+        {
+            bool isLoginNeeded = false;
+            // Iterate cached list and create one line per room via prefab entry
+            foreach ( RoomInfo roomInfo in cachedRoomList.Values )
+            {
+                GameObject entry = Instantiate(objRoomListEntryPrefab);
+                entry.transform.SetParent(objRoomListContent.transform);
+                entry.transform.localScale = Vector3.one;
+                // We have to set z-coordinate explicitly to zero because it somehow has a random value after creation
+                // and as a result the component is not visible (because of 2D view)
+                entry.transform.localPosition = new Vector3(entry.transform.position.x, entry.transform.position.y, 0f);
+                entry.GetComponent<VRRoom.RoomListEntry>().Initialize(roomInfo.Name, (byte)roomInfo.PlayerCount, roomInfo.MaxPlayers, isLoginNeeded);
+
+                roomListEntries.Add(roomInfo.Name, entry);
+            }
         }
 
         public void updateConnectionStateGUI()
