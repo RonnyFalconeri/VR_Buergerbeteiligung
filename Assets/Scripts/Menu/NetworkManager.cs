@@ -10,7 +10,6 @@ namespace VRRoom
     public class NetworkManager : MonoBehaviourPunCallbacks
     {
         [Header("Join Room Panel")]
-        public GameObject panelJoinRoom;
         public GameObject objRoomListContent;
         public GameObject objRoomListEntryPrefab;
         public Button btnSwitchToLogin;
@@ -19,14 +18,13 @@ namespace VRRoom
         public TMP_Text txtConnectionStatus;
 
         [Header("Create Room Panel")]
-        public GameObject panelCreateRoom;
         public TMP_InputField inpRoomName;
         public Dropdown dropdownRoomType;
         public Button btnCreateRoom;
 
-        [Header("Login Panel")]
-        public GameObject panelLogin;
-        
+        [Header("Other")]
+        public MenuManager menuManager;
+
         public bool isConnecting;
         public bool isConnected;
         public bool isJoining;
@@ -45,8 +43,6 @@ namespace VRRoom
             isJoining = false;
             isLoggedIn = false;
 
-            switchToPanel("panelLobby");
-            
             // establish server connection
             ConnectToMaster();
         }
@@ -54,21 +50,6 @@ namespace VRRoom
         // Update is called once per frame
         void Update()
         {
-        }
-
-        public void OnClickSwitchToCreateRoom()
-        {
-            switchToPanel("panelCreateRoom");
-        }
-
-        public void OnClickSwitchToLogin()
-        {
-            switchToPanel("panelLogin");
-        }
-
-        public void OnClickSwitchToLobby()
-        {
-            switchToPanel("panelLobby");
         }
 
         public void ConnectToMaster()
@@ -86,10 +67,12 @@ namespace VRRoom
         public override void OnDisconnected(DisconnectCause cause)
         {
             base.OnDisconnected(cause);
+            Debug.Log(cause);
+
             isConnecting = false;
             isConnected = false;
             updateConnectionStateGUI();
-            Debug.Log(cause);
+            menuManager.switchToPanel("panelLobby");
         }
 
         public override void OnConnectedToMaster()
@@ -154,12 +137,7 @@ namespace VRRoom
             PhotonNetwork.CreateRoom(inpRoomName.text, new RoomOptions{ MaxPlayers = 20, CustomRoomPropertiesForLobby = properties});
         }
 
-        public void OnClickJoinRoom()
-        {
-            isJoining = true;
-            PhotonNetwork.JoinRoom("test");
-        }
-
+        // join room is called from RoomListEntry.cs
         public override void OnJoinedRoom()
         {
             base.OnJoinedRoom();
@@ -238,18 +216,6 @@ namespace VRRoom
             roomListEntries.Clear();
         }
 
-        // just for testing
-        private void simulateRooms()
-        {
-            GameObject entry = Instantiate(objRoomListEntryPrefab);
-            entry.transform.SetParent(objRoomListContent.transform);
-            entry.transform.localScale = Vector3.one;
-            // We have to set z-coordinate explicitly to zero because it somehow has a random value after creation
-            // and as a result the component is not visible (because of 2D view)
-            entry.transform.localPosition = new Vector3(entry.transform.position.x, entry.transform.position.y, 0f);
-            entry.GetComponent<RoomListEntry>().Initialize("test", (byte)5, 20, false); 
-        }
-
         private void UpdateRoomListView()
         {
             bool isLoginNeeded = false;
@@ -292,13 +258,6 @@ namespace VRRoom
             btnSwitchToLogin.interactable = isConnected;
             btnSwitchToCreate.interactable = isConnected;
             btnSwitchToLogin.gameObject.SetActive(!isLoggedIn);
-        }
-
-        public void switchToPanel(string name)
-        {
-            panelCreateRoom.SetActive(name.Equals(panelCreateRoom.name));
-            panelJoinRoom.SetActive(name.Equals(panelJoinRoom.name));
-            panelLogin.SetActive(name.Equals(panelLogin.name));
         }
     }
 }
