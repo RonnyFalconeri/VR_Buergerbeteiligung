@@ -162,6 +162,9 @@ namespace VRRoom
                 PhotonNetwork.LeaveRoom();
                 break;
             }
+
+            // instantiate player
+            PhotonNetwork.Instantiate("Networkplayer", Vector3.zero, Quaternion.identity, 0);
         }
 
         public override void OnCreateRoomFailed(short returnCode, string message)
