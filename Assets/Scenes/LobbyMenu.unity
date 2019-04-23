@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.4964127, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4618,7 +4618,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1413652894}
   m_HandleRect: {fileID: 1413652893}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -5534,7 +5534,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 46737387}
   m_HandleRect: {fileID: 46737386}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -7122,7 +7122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be8a1ccc56a8ea44a63dce3b70b6866, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelJoinRoom: {fileID: 1104583473}
   objRoomListContent: {fileID: 1001241264}
   objRoomListEntryPrefab: {fileID: 7831589082882747177, guid: daa7da36799fe654da68bbc2c13da95b,
     type: 3}
@@ -7130,12 +7129,13 @@ MonoBehaviour:
   btnSwitchToCreate: {fileID: 282224498}
   btnReconnect: {fileID: 209757226}
   txtConnectionStatus: {fileID: 925197164}
-  panelCreateRoom: {fileID: 896597561}
   inpRoomName: {fileID: 1890674150}
   dropdownRoomType: {fileID: 188219135}
   btnCreateRoom: {fileID: 1737654842}
-  panelLogin: {fileID: 162004045}
-  menuInteraction: {fileID: 81381724}
+  menuManager: {fileID: 81381724}
+  playerPrefab: {fileID: 8797632019974641952, guid: a1f6cb7ee2c2fe843a77cd497e9bc4d5,
+    type: 3}
+  localPlayer: {fileID: 0}
   isConnecting: 0
   isConnected: 0
   isJoining: 0

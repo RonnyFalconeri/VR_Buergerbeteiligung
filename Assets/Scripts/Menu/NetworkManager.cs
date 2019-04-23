@@ -24,6 +24,10 @@ namespace VRRoom
 
         [Header("Other")]
         public MenuManager menuManager;
+        public NetworkPlayer playerPrefab;
+
+        [HideInInspector]
+        public NetworkPlayer localPlayer;
 
         public bool isConnecting;
         public bool isConnected;
@@ -164,7 +168,8 @@ namespace VRRoom
             }
 
             // instantiate player
-            PhotonNetwork.Instantiate("Networkplayer", Vector3.zero, Quaternion.identity, 0);
+            Debug.Log("instantiating");
+            NetworkPlayer.RefreshInstance(ref localPlayer, playerPrefab);
         }
 
         public override void OnCreateRoomFailed(short returnCode, string message)

@@ -1,18 +1,34 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Photon.Pun;
 using UnityEngine;
 
-public class NetworkPlayer : MonoBehaviour
+namespace VRRoom
 {
-    // Start is called before the first frame update
-    void Start()
+    public class NetworkPlayer : MonoBehaviourPun
     {
-        Debug.Log("Player instantiated.");
-    }
+        // Start is called before the first frame update
+        void Start()
+        {
+            Debug.Log("Player instantiated.");
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+            if (photonView.IsMine)
+            {
+            }
+        }
+
+        public static void RefreshInstance(ref NetworkPlayer player, NetworkPlayer prefab)
+        {
+            var position = Vector3.zero;
+            var rotation = Quaternion.identity;
+
+            if( null != player )
+            {
+                position = player.transform.position;
+                rotation = player.transform.rotation;
+                PhotonNetwork.Destroy(player.gameObject);
+            }
+            Debug.Log(prefab.gameObject.name);
+            player = PhotonNetwork.Instantiate(prefab.gameObject.name, position, rotation).GetComponent<NetworkPlayer>();
+            Debug.Log(player);
+        }
     }
 }
