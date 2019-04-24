@@ -142,7 +142,7 @@ public class OVRPlayerController : MonoBehaviour
 	public float InitialYRotation { get; private set; }
 	private float MoveScaleMultiplier = 1.0f;
 	private float RotationScaleMultiplier = 1.0f;
-	private bool SkipMouseRotation = false; // We set this to true because we also want to support mouse control
+	private bool SkipMouseRotation = false; // We set this to false because we also want to support mouse control
 	private bool HaltUpdateMovement = false;
 	private bool prevHatLeft = false;
 	private bool prevHatRight = false;
