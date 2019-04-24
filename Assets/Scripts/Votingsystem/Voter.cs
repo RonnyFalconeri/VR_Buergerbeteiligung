@@ -21,7 +21,7 @@ public class Voter : MonoBehaviour
         Voting.Vote_Nothing();
     }
 
-    public Voting Get_Voting()
+    public void Get_Voting()
     {
         // Get Voting object from Moderator, which instantiates the voting
 

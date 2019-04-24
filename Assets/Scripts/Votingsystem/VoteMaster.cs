@@ -9,10 +9,5 @@ public class VoteMaster : MonoBehaviour
     {
         
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }
