@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 
 namespace VRRoom
 {
@@ -17,6 +18,8 @@ namespace VRRoom
         void Start()
         {
             switchToPanel("panelLobby");
+            // disable VR for menu view
+            enableVR(false);
         }
 
         // Update is called once per frame
@@ -57,6 +60,11 @@ namespace VRRoom
             // and as a result the component is not visible (because of 2D view)
             entry.transform.localPosition = new Vector3(entry.transform.position.x, entry.transform.position.y, 0f);
             entry.GetComponent<RoomListEntry>().Initialize("test", (byte)5, 20, false);
+        }
+
+        public void enableVR(bool enable)
+        {
+            XRSettings.enabled = enable;
         }
     }
 }

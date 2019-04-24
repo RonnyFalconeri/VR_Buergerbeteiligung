@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR;
 
 namespace VRRoom
 {
@@ -24,10 +25,6 @@ namespace VRRoom
 
         [Header("Other")]
         public MenuManager menuManager;
-        public NetworkPlayer playerPrefab;
-
-        [HideInInspector]
-        public NetworkPlayer localPlayer;
 
         public bool isConnecting;
         public bool isConnected;
@@ -154,22 +151,21 @@ namespace VRRoom
             {
             case "P":
                 UnityEngine.SceneManagement.SceneManager.LoadScene("Presentation");
+                menuManager.enableVR(true);
                 break;
             case "B":
                 UnityEngine.SceneManagement.SceneManager.LoadScene("Meeting");
+                menuManager.enableVR(true);
                 break;
             case "F":
                 UnityEngine.SceneManagement.SceneManager.LoadScene("Foyer");
+                menuManager.enableVR(true);
                 break;
             default:
                 Debug.Log("Error: Unknown Room type '" + roomType);
                 PhotonNetwork.LeaveRoom();
                 break;
             }
-
-            // instantiate player
-            Debug.Log("instantiating");
-            NetworkPlayer.RefreshInstance(ref localPlayer, playerPrefab);
         }
 
         public override void OnCreateRoomFailed(short returnCode, string message)
