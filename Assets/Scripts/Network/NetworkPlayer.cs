@@ -13,7 +13,7 @@ namespace VRRoom
         void Start()
         {
             Debug.Log("Player instantiated.");
-            if ( photonView.IsMine )
+            if ( (photonView.IsMine) || (false == PhotonNetwork.IsConnected) )
             {
                 player = GameObject.Find("OVRPlayerController").transform;
                 playerCamera = player.Find("OVRCameraRig/TrackingSpace/CenterEyeAnchor");
@@ -21,6 +21,19 @@ namespace VRRoom
                 // add player and avatar to camera and correct positioning
                 this.transform.SetParent(playerCamera);
                 this.transform.localPosition = new Vector3(0, -1, 0);
+
+                Debug.Log("Comparing");
+                if ( 0 == SceneManagerHelper.ActiveSceneName.CompareTo("Presentation") )
+                {
+                    Debug.Log("presentation scene");
+                    // in presentation room, disable movement
+                    OVRPlayerController controller = (OVRPlayerController)player.GetComponent("OVRPlayerController");
+                    if ( null != controller )
+                    {
+                        Debug.Log("Controller detected");
+                        controller.EnableLinearMovement = false;
+                    }
+                }
             }
         }
 

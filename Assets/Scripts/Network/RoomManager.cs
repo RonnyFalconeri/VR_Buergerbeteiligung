@@ -12,7 +12,7 @@ namespace VRRoom
         void Start()
         {
             // spawn own player on network (gets positioned in NetworkPlayer.cs)
-            PhotonNetwork.Instantiate(playerPrefab.gameObject.name, Vector3.zero, Quaternion.identity);
+            GameObject player = PhotonNetwork.Instantiate(playerPrefab.gameObject.name, Vector3.zero, Quaternion.identity);
         }
 
         // Update is called once per frame
