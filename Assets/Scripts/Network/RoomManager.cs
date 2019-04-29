@@ -7,22 +7,12 @@ namespace VRRoom
 {
     public class RoomManager : MonoBehaviourPunCallbacks
     {
-        public NetworkPlayer playerPrefab;
-        public GameObject spawnPoint;
-
-        [HideInInspector]
-        public NetworkPlayer localPlayer;
-
-        Vector3 defaultPos;
-        Quaternion defaultRot;
+        public GameObject playerPrefab;
 
         void Start()
         {
-            // Room entered first time
-            defaultPos = new Vector3(spawnPoint.transform.position.x, spawnPoint.transform.position.y, spawnPoint.transform.position.z);
-            Debug.Log("spawnpoint:" + defaultPos);
-            defaultRot = new Quaternion(spawnPoint.transform.rotation.x, spawnPoint.transform.rotation.y, spawnPoint.transform.rotation.z, spawnPoint.transform.rotation.w);
-            NetworkPlayer.RefreshInstance(ref localPlayer, playerPrefab, defaultPos, defaultRot);
+            // spawn own player on network (gets positioned in NetworkPlayer.cs)
+            PhotonNetwork.Instantiate(playerPrefab.gameObject.name, Vector3.zero, Quaternion.identity);
         }
 
         // Update is called once per frame
@@ -30,13 +20,5 @@ namespace VRRoom
         {
 
         }
-
-        public override void OnPlayerEnteredRoom(Photon.Realtime.Player photonPlayer)
-        {
-            // instantiate the player (don't have to be our own local player)
-            Debug.Log("New player entered room");
-            NetworkPlayer.RefreshInstance(ref localPlayer, playerPrefab, defaultPos, defaultRot);
-        }
-
     }
 }

@@ -3454,7 +3454,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 523.6}
+  m_AnchoredPosition: {x: 0, y: 523.5996}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1001241266
@@ -5534,7 +5534,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 46737387}
   m_HandleRect: {fileID: 46737386}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -7133,6 +7133,8 @@ MonoBehaviour:
   dropdownRoomType: {fileID: 188219135}
   btnCreateRoom: {fileID: 1737654842}
   menuManager: {fileID: 81381724}
+  playerPrefab: {fileID: 4156981469890014226, guid: 60cd1ed2b2486874cae4bf14e351290e,
+    type: 3}
   isConnecting: 0
   isConnected: 0
   isJoining: 0
