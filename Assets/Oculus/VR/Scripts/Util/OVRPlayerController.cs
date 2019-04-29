@@ -132,6 +132,8 @@ public class OVRPlayerController : MonoBehaviour
 	/// </summary>
 	public bool RotationEitherThumbstick = false;
 
+    public GameObject Camera;
+
 	protected CharacterController Controller = null;
 	protected OVRCameraRig CameraRig = null;
 
@@ -140,7 +142,8 @@ public class OVRPlayerController : MonoBehaviour
 	private float FallSpeed = 0.0f;
 	private OVRPose? InitialPose;
 	public float InitialYRotation { get; private set; }
-	private float MoveScaleMultiplier = 1.0f;
+    public float XRotation { get; private set; } // The absolute rotation
+    private float MoveScaleMultiplier = 1.0f;
 	private float RotationScaleMultiplier = 1.0f;
 	private bool SkipMouseRotation = false; // We set this to false because we also want to support mouse control
 	private bool HaltUpdateMovement = false;
@@ -177,6 +180,7 @@ public class OVRPlayerController : MonoBehaviour
 			CameraRig = CameraRigs[0];
 
 		InitialYRotation = transform.rotation.eulerAngles.y;
+        XRotation = transform.rotation.eulerAngles.x;
 	}
 
 	void OnEnable()
@@ -416,7 +420,23 @@ public class OVRPlayerController : MonoBehaviour
 
 #if !UNITY_ANDROID || UNITY_EDITOR
 			if (!SkipMouseRotation)
-				euler.y += Input.GetAxis("Mouse X") * rotateInfluence * 3.25f;
+            {
+                float yInput = Input.GetAxis("Mouse Y") * rotateInfluence * 3.25f;
+                XRotation -= yInput;
+                if ((XRotation < -90f) || (XRotation > 90f))
+                {
+                    // Rotation would break our neck, so don't apply it on real rotation and revert
+                    XRotation += yInput;
+                }
+                else
+                {
+                    // Rotation is valid, apply on real rotation
+                    Vector3 originalEuler = Camera.transform.eulerAngles;
+                    Camera.transform.eulerAngles = new Vector3(originalEuler.x - yInput, originalEuler.y, originalEuler.z);
+                }
+                // y (horizontal) rotation is not limited
+                euler.y += Input.GetAxis("Mouse X") * rotateInfluence * 3.25f;         
+            }
 #endif
 
 			if (SnapRotation)

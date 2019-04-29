@@ -2756,7 +2756,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Acceleration: 0.3
   Damping: 0.3
-  BackAndSideDampen: 0.5
+  BackAndSideDampen: 1
   JumpForce: 0.3
   RotationAmount: 1.5
   RotationRatchet: 45

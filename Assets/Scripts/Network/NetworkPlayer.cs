@@ -18,11 +18,12 @@ namespace VRRoom
                 player = GameObject.Find("OVRPlayerController").transform;
                 playerCamera = player.Find("OVRCameraRig/TrackingSpace/CenterEyeAnchor");
 
-                // add player and avatar to camera and correct positioning
-                this.transform.SetParent(playerCamera);
-                this.transform.localPosition = new Vector3(0, -1, 0);
+                // add network with avatar to OVR player and correct positioning
+                this.transform.SetParent(player);
+                this.transform.localPosition = new Vector3(0, 0, 0);
+                this.transform.localRotation = Quaternion.identity;
 
-                // disable avatar for own player
+                // disable avatar for own player so it doesnt disturb the view
                 avatar.SetActive(false);
 
                 if ( 0 == SceneManagerHelper.ActiveSceneName.CompareTo("Presentation") )
