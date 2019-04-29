@@ -165,7 +165,7 @@ namespace VRRoom
                 Debug.Log("Error: Unknown Room type '" + roomType);
                 PhotonNetwork.LeaveRoom();
                 break;
-            }
+            }            
         }
 
         public override void OnCreateRoomFailed(short returnCode, string message)
