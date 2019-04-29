@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class VoteMaster : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Voting Voting;
+
     
+    void Create_Survey()
+    {
+        // Creates an empty GameObject with component voting
+    }
 }

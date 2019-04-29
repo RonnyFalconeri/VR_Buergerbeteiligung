@@ -4,38 +4,38 @@ using UnityEngine;
 
 public class Voting : MonoBehaviour
 {
-
-    private string Voting_Name;
+    
     private int Yes_Voters = 0;
     private int No_Voters = 0;
     private int Abstention_Voters = 0;
     private int Amount_Voters = 0;
-
-
-    // Constructor
-    public Voting(string pVoting_Name)
-    {
-        this.Voting_Name = pVoting_Name;
-    }
     
 
     // Set voting values
     public void Vote_Yes()
     {
         this.Yes_Voters++;
-        Debug.Log("Voted yes. " + this.Yes_Voters + " for 'Yes'");
+        this.Amount_Voters++;
     }
 
     public void Vote_No()
     {
         this.No_Voters++;
-        Debug.Log("Voted no. " + this.No_Voters + " for 'No'");
+        this.Amount_Voters++;
     }
 
     public void Vote_Nothing()
     {
         this.Abstention_Voters++;
-        Debug.Log("Voted nothing. " + this.Abstention_Voters + " for 'Nothing'");
+        this.Amount_Voters++;
+    }
+
+    public void Reset_Voting()
+    {
+        this.Yes_Voters = 0;
+        this.No_Voters = 0;
+        this.Abstention_Voters = 0;
+        this.Amount_Voters = 0;
     }
 
 
@@ -54,4 +54,10 @@ public class Voting : MonoBehaviour
     {
         return this.Abstention_Voters;
     }
+
+    public void Get_Result()
+    {
+        Debug.Log("Result (Yes | No | Nothing): "+this.Yes_Voters+" | "+this.No_Voters+" | "+this.Abstention_Voters);
+    }
+
 }
