@@ -82,7 +82,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26c3442e26eac1a4cad866d9196b39dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  avatar: {fileID: 0}
+  avatar: {fileID: 1131258839210345626}
   player: {fileID: 0}
   playerCamera: {fileID: 0}
 --- !u!1001 &1132045591381464192
