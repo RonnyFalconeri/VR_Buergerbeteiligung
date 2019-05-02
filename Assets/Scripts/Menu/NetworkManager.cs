@@ -13,10 +13,6 @@ namespace VRRoom
         [Header("Join Room Panel")]
         public GameObject objRoomListContent;
         public GameObject objRoomListEntryPrefab;
-        public Button btnSwitchToLogin;
-        public Button btnSwitchToCreate;
-        public Button btnReconnect;
-        public TMP_Text txtConnectionStatus;
 
         [Header("Create Room Panel")]
         public TMP_InputField inpRoomName;
@@ -29,7 +25,6 @@ namespace VRRoom
         public bool isConnecting;
         public bool isConnected;
         public bool isJoining;
-        public bool isLoggedIn;
 
         private Dictionary<string, RoomInfo> cachedRoomList;
         private Dictionary<string, GameObject> roomListEntries;
@@ -42,7 +37,6 @@ namespace VRRoom
             isConnecting = false;
             isConnected = false;
             isJoining = false;
-            isLoggedIn = false;
 
             // establish server connection
             ConnectToMaster();
@@ -61,7 +55,7 @@ namespace VRRoom
             PhotonNetwork.GameVersion = "v1";
 
             isConnecting = true;
-            updateConnectionStateGUI();
+            menuManager.OnServerConnStateChanged(isConnecting, isConnected);
             PhotonNetwork.ConnectUsingSettings();
         }
 
@@ -72,7 +66,7 @@ namespace VRRoom
 
             isConnecting = false;
             isConnected = false;
-            updateConnectionStateGUI();
+            menuManager.OnServerConnStateChanged(isConnecting, isConnected);
             menuManager.switchToPanel("panelLobby");
         }
 
@@ -81,7 +75,7 @@ namespace VRRoom
             base.OnConnectedToMaster();
             isConnecting = false;
             isConnected = true;
-            updateConnectionStateGUI();
+            menuManager.OnServerConnStateChanged(isConnecting, isConnected);
             Debug.Log("Connected to master server successfully!");
 
             // join default lobby to receive room list
@@ -104,7 +98,6 @@ namespace VRRoom
         public override void OnLeftLobby()
         {
             cachedRoomList.Clear();
-
             ClearRoomListView();
         }
 
@@ -141,7 +134,7 @@ namespace VRRoom
         // join room is called from RoomListEntry.cs
         public override void OnJoinedRoom()
         {
-            base.OnJoinedRoom();
+            bool roomEntered = false;
             isJoining = false;
             Debug.Log("Joined Room " + PhotonNetwork.CurrentRoom.Name + " | Master: " + PhotonNetwork.IsMasterClient + " | Members online: " + PhotonNetwork.CurrentRoom.PlayerCount);
 
@@ -151,35 +144,53 @@ namespace VRRoom
             {
             case "P":
                 UnityEngine.SceneManagement.SceneManager.LoadScene("Presentation");
-                menuManager.enableVR(true);
+                roomEntered = true;
                 break;
             case "B":
                 UnityEngine.SceneManagement.SceneManager.LoadScene("Meeting");
-                menuManager.enableVR(true);
+                roomEntered = true;
                 break;
             case "F":
                 UnityEngine.SceneManagement.SceneManager.LoadScene("Foyer");
-                menuManager.enableVR(true);
+                roomEntered = true;
                 break;
             default:
                 Debug.Log("Error: Unknown Room type '" + roomType);
                 PhotonNetwork.LeaveRoom();
                 break;
-            }            
+            }      
+
+            if ( roomEntered )
+            {
+                menuManager.enableVR(true);
+                if ( PhotonNetwork.InLobby )
+                {
+                    // Leave Lobby to not receive unnecessary room updates
+                    PhotonNetwork.LeaveLobby();
+                }
+            }
         }
 
         public override void OnCreateRoomFailed(short returnCode, string message)
         {
-            base.OnCreateRoomFailed(returnCode, message);
             Debug.Log(message);
             isJoining = false;
         }
 
         public override void OnJoinRoomFailed(short returnCode, string message)
         {
-            base.OnJoinRoomFailed(returnCode, message);
             Debug.Log(message);
             isJoining = false;
+        }
+
+        public void updateUserData(UserData userdata)
+        {
+            PhotonNetwork.LocalPlayer.NickName = userdata.name;
+        }
+
+        public void OnUserLoggedOut()
+        {
+
         }
 
         private void UpdateCachedRoomList(List<RoomInfo> roomList)
@@ -222,7 +233,7 @@ namespace VRRoom
 
         private void UpdateRoomListView()
         {
-            bool isLoginNeeded = false;
+            bool isLoginNeeded = true;
             // Iterate cached list and create one line per room via prefab entry
             foreach ( RoomInfo roomInfo in cachedRoomList.Values )
             {
@@ -232,36 +243,10 @@ namespace VRRoom
                 // We have to set z-coordinate explicitly to zero because it somehow has a random value after creation
                 // and as a result the component is not visible (because of 2D view)
                 entry.transform.localPosition = new Vector3(entry.transform.position.x, entry.transform.position.y, 0f);
-                entry.GetComponent<VRRoom.RoomListEntry>().Initialize(roomInfo.Name, (byte)roomInfo.PlayerCount, roomInfo.MaxPlayers, isLoginNeeded);
+                entry.GetComponent<VRRoom.RoomListEntry>().Initialize(roomInfo.Name, (byte)roomInfo.PlayerCount, roomInfo.MaxPlayers, isLoginNeeded, menuManager);
 
                 roomListEntries.Add(roomInfo.Name, entry);
             }
-        }
-
-        public void updateConnectionStateGUI()
-        {
-            if ( isConnecting )
-            {
-                txtConnectionStatus.text = "Verbinden...";
-                txtConnectionStatus.color = Color.green;
-                btnReconnect.gameObject.SetActive(false);
-            }
-            else if ( isConnected )
-            {
-                txtConnectionStatus.text = "Verbunden";
-                txtConnectionStatus.color = Color.green;
-                btnReconnect.gameObject.SetActive(false);
-            }
-            else
-            {
-                txtConnectionStatus.text = "Keine Verbindung!";
-                txtConnectionStatus.color = Color.red;
-                btnReconnect.gameObject.SetActive(true);
-            }
-
-            btnSwitchToLogin.interactable = isConnected;
-            btnSwitchToCreate.interactable = isConnected;
-            btnSwitchToLogin.gameObject.SetActive(!isLoggedIn);
         }
     }
 }
