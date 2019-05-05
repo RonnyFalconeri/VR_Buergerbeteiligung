@@ -21,5 +21,10 @@ namespace VRRoom
             //topic = "TEXT";
             //shown_topic.text = "Thema: " + topic;
         }
+
+        void Set_topic(string a) 
+        {
+            topic = a;
+        }
     }
 }
