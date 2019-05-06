@@ -2,42 +2,45 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Voter : MonoBehaviour
+namespace VRRoom
 {
-    public VoteMaster Voting;
-    private bool Voted = false;
-
-    void Update()
+    public class Voter : MonoBehaviour
     {
-        if (Input.GetKey("g"))
-        {
-            Vote_Yes();
+        public VoteMaster Voting;
+        private bool Voted = false;
 
-        } else
-        if (Input.GetKey("h"))
+        void Update()
         {
-            Vote_No();
+            if (Input.GetKey("g"))
+            {
+                Vote_Yes();
+
+            }
+            else
+            if (Input.GetKey("h"))
+            {
+                Vote_No();
+
+            }
 
         }
 
-    }
-
-    public void Vote_Yes()
-    {
-        if(!Voted)
+        public void Vote_Yes()
         {
-            Voting.Vote("yes");
-            Voted = true;
+            if (!Voted)
+            {
+                Voting.Vote("yes");
+                Voted = true;
+            }
         }
-    }
 
-    public void Vote_No()
-    {
-        if (!Voted)
+        public void Vote_No()
         {
-            Voting.Vote("no");
-            Voted = true;
+            if (!Voted)
+            {
+                Voting.Vote("no");
+                Voted = true;
+            }
         }
-    }
-    
+    } 
 }

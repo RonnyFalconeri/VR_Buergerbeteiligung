@@ -8,18 +8,16 @@ namespace VRRoom
         public GameObject avatar;
         public Transform player;
         public Transform playerCamera;
-        public VoteMaster Voting;
+        public VoteMaster voteMaster;
         private bool Voted = false;
-
-        
 
         // Start is called before the first frame update
         void Start()
         {
+            voteMaster = new VoteMaster();
             Debug.Log("Player instantiated.");
             if ( (photonView.IsMine) || (false == PhotonNetwork.IsConnected) )
             {
-                Voting = new VoteMaster();
                 player = GameObject.Find("OVRPlayerController").transform;
                 playerCamera = player.Find("OVRCameraRig/TrackingSpace/CenterEyeAnchor");
 
@@ -102,14 +100,15 @@ namespace VRRoom
 
         // for test purposes
         [PunRPC]
-        void OnVoted(string selection, PhotonMessageInfo info)
+        public void OnVoted(string selection, PhotonMessageInfo info)
         {
             if ( true == (bool)PhotonNetwork.LocalPlayer.CustomProperties["isMod"] )
             {
                 // the photonView.RPC() call is the same as without the info parameter.
                 // the info.Sender is the player who called the RPC.
-                Voting.Vote(selection);
+                voteMaster.Vote(selection);
                 Debug.Log(info.Sender.NickName + " voted for " + selection);
+                voteMaster.Get_Result();
             }
         }
     }
