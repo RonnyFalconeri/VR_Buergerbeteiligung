@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 namespace VRRoom
@@ -21,7 +22,7 @@ namespace VRRoom
             participant_count.text = "Teilnehmer: " + participants;
             if (Input.GetKeyDown(KeyCode.Plus))
             {
-                participants++;
+                participants = PhotonNetwork.CurrentRoom.PlayerCount;
             }
         }
     }
