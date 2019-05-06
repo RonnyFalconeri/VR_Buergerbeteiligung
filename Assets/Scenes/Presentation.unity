@@ -205,7 +205,6 @@ GameObject:
   - component: {fileID: 69911941}
   - component: {fileID: 69911940}
   - component: {fileID: 69911939}
-  - component: {fileID: 69911946}
   m_Layer: 0
   m_Name: Room
   m_TagString: Untagged
@@ -7708,14 +7707,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &69911946
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 69911938}
-  m_Enabled: 1
 --- !u!1 &76655946
 GameObject:
   m_ObjectHideFlags: 0
@@ -9494,7 +9485,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 940986813}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 2
   m_Camera: {fileID: 0}
