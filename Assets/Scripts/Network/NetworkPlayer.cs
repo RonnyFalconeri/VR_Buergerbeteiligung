@@ -19,6 +19,7 @@ namespace VRRoom
             Debug.Log("Player instantiated.");
             if ( (photonView.IsMine) || (false == PhotonNetwork.IsConnected) )
             {
+                Voting = new VoteMaster();
                 player = GameObject.Find("OVRPlayerController").transform;
                 playerCamera = player.Find("OVRCameraRig/TrackingSpace/CenterEyeAnchor");
 
