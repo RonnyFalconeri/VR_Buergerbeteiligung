@@ -10,7 +10,6 @@ public class LoadImage : MonoBehaviour
     private string FilePath = "C:\\Users\\ronny_f6nb3z1\\Desktop\\Blackboard_Media\\west3.jpg";
     byte[] FileData;
     private RawImage Media_RawImage;
-    public Texture Media_Texture;
     private Texture2D texture = null;
 
 
@@ -30,5 +29,14 @@ public class LoadImage : MonoBehaviour
         Media_RawImage.texture = texture;
 
     }
-    
+
+    private void Update()
+    {
+        // Test Keyboard input for voting
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            print("space key was pressed");
+        }
+    }
+
 }

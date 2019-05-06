@@ -8,6 +8,10 @@ namespace VRRoom
         public GameObject avatar;
         public Transform player;
         public Transform playerCamera;
+        public VoteMaster Voting;
+        private bool Voted = false;
+
+        
 
         // Start is called before the first frame update
         void Start()
@@ -35,10 +39,41 @@ namespace VRRoom
                         controller.EnableLinearMovement = false;
                     }
                 }
+            }
+        }
 
-                // for test purposes
-                Debug.Log("Player " + PhotonNetwork.LocalPlayer.NickName + ", isMod: " + PhotonNetwork.LocalPlayer.CustomProperties["isMod"]);
-                this.photonView.RPC("OnVoted", RpcTarget.AllViaServer, "true");
+        void Update()
+        {
+            if (Input.GetKey("g"))
+            {
+                Vote_Yes();
+
+            } else
+            if (Input.GetKey("h"))
+            {
+                Vote_No();
+
+            }
+
+        }
+
+        public void Vote_Yes()
+        {
+            if (!Voted)
+            {
+                //Voting.Vote("yes");
+                this.photonView.RPC("OnVoted", RpcTarget.AllViaServer, "yes");
+                Voted = true;
+            }
+        }
+
+        public void Vote_No()
+        {
+            if (!Voted)
+            {
+                //Voting.Vote("no");
+                this.photonView.RPC("OnVoted", RpcTarget.AllViaServer, "no");
+                Voted = true;
             }
         }
 
@@ -72,6 +107,7 @@ namespace VRRoom
             {
                 // the photonView.RPC() call is the same as without the info parameter.
                 // the info.Sender is the player who called the RPC.
+                Voting.Vote(selection);
                 Debug.Log(info.Sender.NickName + " voted for " + selection);
             }
         }

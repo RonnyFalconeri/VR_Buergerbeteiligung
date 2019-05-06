@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class Voter : MonoBehaviour
 {
-    public Voting Voting;
+    public VoteMaster Voting;
     private bool Voted = false;
 
     void Update()
     {
-        // Controls for positioning: G, H, J, K
         if (Input.GetKey("g"))
         {
             Vote_Yes();
@@ -19,44 +18,25 @@ public class Voter : MonoBehaviour
         {
             Vote_No();
 
-        } else
-        if (Input.GetKey("j"))
-        {
-            Vote_Nothing();
-
-        } else
-        if (Input.GetKey("k"))
-        {
-            Voting.Get_Result();
-
         }
 
     }
 
     public void Vote_Yes()
     {
-        if(!this.Voted)
+        if(!Voted)
         {
-            Voting.Vote_Yes();
-            this.Voted = true;
+            Voting.Vote("yes");
+            Voted = true;
         }
     }
 
     public void Vote_No()
     {
-        if (!this.Voted)
+        if (!Voted)
         {
-            Voting.Vote_No();
-            this.Voted = true;
-        }
-    }
-
-    public void Vote_Nothing()
-    {
-        if (!this.Voted)
-        {
-            Voting.Vote_Nothing();
-            this.Voted = true;
+            Voting.Vote("no");
+            Voted = true;
         }
     }
     
