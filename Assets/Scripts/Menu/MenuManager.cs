@@ -12,6 +12,7 @@ namespace VRRoom
         public GameObject panelCreateRoom;
         public GameObject panelLogin;
         public GameObject panelLobby;
+        public GameObject panelEditProfile;
 
         public Button btnLogin;
         public Button btnCreateRoom;
@@ -67,12 +68,13 @@ namespace VRRoom
             panelCreateRoom.SetActive(name.Equals(panelCreateRoom.name));
             panelLobby.SetActive(name.Equals(panelLobby.name));
             panelLogin.SetActive(name.Equals(panelLogin.name));
+            panelEditProfile.SetActive(name.Equals(panelEditProfile.name));
         }
 
         public void loginForRestrictedRoom(string roomName)
         {
-            accountManager.JoinRoomAfterLogin(roomName);
             switchToPanel("panelLogin");
+            accountManager.JoinRoomAfterLogin(roomName);
         }
 
         public void OnUserLoggedIn(UserData userdata)

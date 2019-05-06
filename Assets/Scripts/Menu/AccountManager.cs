@@ -112,5 +112,10 @@ namespace VRRoom
             menuManager.OnUserLoggedOut();
             networkManager.OnUserLoggedOut();
         }
+
+        public bool IsLoggedIn()
+        {
+            return isLoggedIn;
+        }
     }
 }

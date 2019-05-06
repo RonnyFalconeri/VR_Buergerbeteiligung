@@ -35,6 +35,10 @@ namespace VRRoom
                         controller.EnableLinearMovement = false;
                     }
                 }
+
+                // for test purposes
+                Debug.Log("Player " + PhotonNetwork.LocalPlayer.NickName + ", isMod: " + PhotonNetwork.LocalPlayer.CustomProperties["isMod"]);
+                this.photonView.RPC("OnVoted", RpcTarget.AllViaServer, "true");
             }
         }
 
@@ -57,6 +61,18 @@ namespace VRRoom
                 this.transform.rotation = (Quaternion)stream.ReceiveNext();
                 avatar.transform.localPosition = (Vector3)stream.ReceiveNext();
                 avatar.transform.localRotation = (Quaternion)stream.ReceiveNext();
+            }
+        }
+
+        // for test purposes
+        [PunRPC]
+        void OnVoted(string selection, PhotonMessageInfo info)
+        {
+            if ( true == (bool)PhotonNetwork.LocalPlayer.CustomProperties["isMod"] )
+            {
+                // the photonView.RPC() call is the same as without the info parameter.
+                // the info.Sender is the player who called the RPC.
+                Debug.Log(info.Sender.NickName + " voted for " + selection);
             }
         }
     }

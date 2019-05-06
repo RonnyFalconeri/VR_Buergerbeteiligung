@@ -21,10 +21,10 @@ namespace VRRoom
             
         }
 
-        public void Initialize(string name, byte currentPlayers, byte maxPlayers, bool isLoginNeeded, MenuManager menuManager)
+        public void Initialize(string name, byte currentPlayers, byte maxPlayers, bool isLoginNeeded, MenuManager menuMng)
         {
             roomName = name;
-            this.menuManager = menuManager;
+            this.menuManager = menuMng;
 
             // Set GUI
             lblRoomNameText.text = name;
@@ -34,6 +34,7 @@ namespace VRRoom
                 // no login needed for room, so directly display 'join' button
                 btnJoinLoginRoomButton.onClick.AddListener(() =>
                 {
+                    Debug.Log("joining" + roomName);
                     PhotonNetwork.JoinRoom(roomName);
                 });
             }
@@ -43,7 +44,8 @@ namespace VRRoom
                 lblButtonText.text = "Login";
                 btnJoinLoginRoomButton.onClick.AddListener(() =>
                 {
-                    this.menuManager.loginForRestrictedRoom(roomName);
+                    Debug.Log("login in for room " + roomName);
+                    menuManager.loginForRestrictedRoom(roomName);
                 });
             }
         }

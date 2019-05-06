@@ -21,6 +21,7 @@ namespace VRRoom
 
         [Header("Other")]
         public MenuManager menuManager;
+        public AccountManager accountManager;
 
         public bool isConnecting;
         public bool isConnected;
@@ -68,6 +69,7 @@ namespace VRRoom
             isConnected = false;
             menuManager.OnServerConnStateChanged(isConnecting, isConnected);
             menuManager.switchToPanel("panelLobby");
+            accountManager.OnClickLogout();
         }
 
         public override void OnConnectedToMaster()
@@ -186,11 +188,14 @@ namespace VRRoom
         public void updateUserData(UserData userdata)
         {
             PhotonNetwork.LocalPlayer.NickName = userdata.name;
+            PhotonNetwork.LocalPlayer.CustomProperties.Add("isMod", userdata.isModerator);
+            PhotonNetwork.LocalPlayer.CustomProperties.Add("avatar", userdata.avatar);
         }
 
         public void OnUserLoggedOut()
         {
-
+            PhotonNetwork.LocalPlayer.NickName = "Anonymous";
+            PhotonNetwork.LocalPlayer.CustomProperties.Clear();
         }
 
         private void UpdateCachedRoomList(List<RoomInfo> roomList)
@@ -234,6 +239,8 @@ namespace VRRoom
         private void UpdateRoomListView()
         {
             bool isLoginNeeded = true;
+
+            bool showLogin = (isLoginNeeded && accountManager.IsLoggedIn()); 
             // Iterate cached list and create one line per room via prefab entry
             foreach ( RoomInfo roomInfo in cachedRoomList.Values )
             {
