@@ -93,10 +93,11 @@ namespace VRRoom
                 userdata = new UserData();
                 userdata.name = username;
                 userdata.avatar = "default";
-                if ( (username.Equals("Moderator123")) && (password.Equals("moderator")) )
+                userdata.isModerator = false;
+                if ( (username.StartsWith("mod")) && (password.Equals("moderator")) )
                 {
-                    // plz don't hack this safe account
                     userdata.avatar = "moderator";
+                    userdata.name = "[mod]" + username.Substring(3);
                     userdata.isModerator = true;
                 }
                 return true;

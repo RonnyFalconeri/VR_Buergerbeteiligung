@@ -10,20 +10,17 @@ namespace VRRoom
         private int No_Voters = 0;
         private int Amount_Voters = 0;
 
-
         public void Vote(string Opinion)
         {
+            Amount_Voters++;
             if (Opinion == "yes")
             {
                 Yes_Voters++;
-                Amount_Voters++;
-
             }
             else
             if (Opinion == "no")
             {
                 No_Voters++;
-                Amount_Voters++;
             }
         }
 
@@ -34,6 +31,10 @@ namespace VRRoom
             Amount_Voters = 0;
         }
 
+        public int Get_Voter_Count()
+        {
+            return Amount_Voters;
+        }
 
         public void Get_Result()
         {

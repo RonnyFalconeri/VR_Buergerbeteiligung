@@ -6,26 +6,37 @@ namespace VRRoom
     public class NetworkPlayer : MonoBehaviourPun, IPunObservable
     {
         public GameObject avatar;
-        public Transform player;
-        public Transform playerCamera;
-        public VoteMaster voteMaster;
-        private bool Voted = false;
+
+        private Transform player;
+        private Transform playerCamera;
+        private VoteMaster voteMaster;
+        private bool votingPossible = false;
+
+        private bool isModerator;
 
         // Start is called before the first frame update
         void Start()
         {
-            voteMaster = new VoteMaster();
-            Debug.Log("Player instantiated.");
+            if ( PhotonNetwork.IsConnected )
+            {
+                isModerator = (bool)PhotonNetwork.LocalPlayer.CustomProperties["isMod"];
+                if ( isModerator )
+                {
+                    // moderator manages voting
+                    voteMaster = new VoteMaster();
+                }
+            }
+
+            // only for own player connect avatar to the controller
             if ( (photonView.IsMine) || (false == PhotonNetwork.IsConnected) )
             {
+                // get OVRPlayerController and center camera
                 player = GameObject.Find("OVRPlayerController").transform;
                 playerCamera = player.Find("OVRCameraRig/TrackingSpace/CenterEyeAnchor");
-
-                // add network with avatar to OVR player and correct positioning
+                // add own player to OVR controller and correct positioning
                 this.transform.SetParent(player);
                 this.transform.localPosition = new Vector3(0, 0, 0);
                 this.transform.localRotation = Quaternion.identity;
-
                 // disable avatar for own player so it doesnt disturb the view
                 avatar.SetActive(false);
 
@@ -43,43 +54,65 @@ namespace VRRoom
 
         void Update()
         {
-            if (Input.GetKey("g"))
+            // check for voting
+            if ( true == votingPossible )
             {
-                Vote_Yes();
-
-            } else
-            if (Input.GetKey("h"))
-            {
-                Vote_No();
-
+                if ( Input.GetKey("g") )
+                {
+                    SendVoteToModerator("yes");
+                }
+                else if ( Input.GetKey("h") )
+                {
+                    SendVoteToModerator("no");
+                }
             }
-
-        }
-
-        public void Vote_Yes()
-        {
-            if (!Voted)
+            if ( Input.GetKey("v") )
             {
-                //Voting.Vote("yes");
-                this.photonView.RPC("OnVoted", RpcTarget.AllViaServer, "yes");
-                Voted = true;
+                // remove old votings
+                // start rpc for new voting
+                PhotonNetwork.RemoveRPCs(PhotonNetwork.LocalPlayer);
+                this.photonView.RPC("OnVotingStarted", RpcTarget.AllBufferedViaServer, "Seid ihr dafür?");
             }
         }
-
-        public void Vote_No()
+        
+        public void SendVoteToModerator(string vote)
         {
-            if (!Voted)
+            if ( votingPossible )
             {
-                //Voting.Vote("no");
-                this.photonView.RPC("OnVoted", RpcTarget.AllViaServer, "no");
-                Voted = true;
+                votingPossible = false;
+                // vote is send to all players, but moderator filters in method
+                this.photonView.RPC("OnVoted", RpcTarget.AllViaServer, vote);
+            }
+        }
+
+        [PunRPC]
+        public void OnVotingStarted(string request)
+        {
+            Debug.Log("Neue Abstimmung: " + request + "\r\n" + "'g' für ja, 'h' für nein.");
+            votingPossible = true;
+        }
+
+        [PunRPC]
+        public void OnVoted(string selection, PhotonMessageInfo info)
+        {
+            if ( isModerator )
+            {
+                // only moderator evaluates the votes
+                Debug.Log(info.Sender.NickName + " voted for " + selection);
+                voteMaster.Vote(selection);
+                
+                if ( voteMaster.Get_Voter_Count() >= PhotonNetwork.CurrentRoom.PlayerCount)
+                {
+                    // everybody voted, so the voting is over.
+                    voteMaster.Get_Result();
+                }
             }
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
             // update position via network
-            if ( stream.IsWriting )
+            if (stream.IsWriting)
             {
                 // if we are writing, this is our own player
                 stream.SendNext(player.position);
@@ -95,20 +128,6 @@ namespace VRRoom
                 this.transform.rotation = (Quaternion)stream.ReceiveNext();
                 avatar.transform.localPosition = (Vector3)stream.ReceiveNext();
                 avatar.transform.localRotation = (Quaternion)stream.ReceiveNext();
-            }
-        }
-
-        // for test purposes
-        [PunRPC]
-        public void OnVoted(string selection, PhotonMessageInfo info)
-        {
-            if ( true == (bool)PhotonNetwork.LocalPlayer.CustomProperties["isMod"] )
-            {
-                // the photonView.RPC() call is the same as without the info parameter.
-                // the info.Sender is the player who called the RPC.
-                voteMaster.Vote(selection);
-                Debug.Log(info.Sender.NickName + " voted for " + selection);
-                voteMaster.Get_Result();
             }
         }
     }
