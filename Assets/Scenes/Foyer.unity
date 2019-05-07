@@ -1177,12 +1177,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!1 &263935797 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5338770888519058694, guid: a1f6cb7ee2c2fe843a77cd497e9bc4d5,
-    type: 3}
-  m_PrefabInstance: {fileID: 1810346121}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &389614326 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6503994314306275437, guid: 9ae60eacad7c7ee4c8a2fc49d1a675fc,
@@ -4027,7 +4021,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh36446
+  m_Name: pb_Mesh19640
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -7404,11 +7398,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -1.391
       objectReference: {fileID: 0}
-    - target: {fileID: 2333594974371800624, guid: a1f6cb7ee2c2fe843a77cd497e9bc4d5,
+    - target: {fileID: 2484586180261097193, guid: a1f6cb7ee2c2fe843a77cd497e9bc4d5,
         type: 3}
-      propertyPath: Camera
-      value: 
-      objectReference: {fileID: 263935797}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2484586180261097193, guid: a1f6cb7ee2c2fe843a77cd497e9bc4d5,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833414134061365322, guid: a1f6cb7ee2c2fe843a77cd497e9bc4d5,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833414134061365322, guid: a1f6cb7ee2c2fe843a77cd497e9bc4d5,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833414134061365322, guid: a1f6cb7ee2c2fe843a77cd497e9bc4d5,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1f6cb7ee2c2fe843a77cd497e9bc4d5, type: 3}
 --- !u!1 &1825006282
