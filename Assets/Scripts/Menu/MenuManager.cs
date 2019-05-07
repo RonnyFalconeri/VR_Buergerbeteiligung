@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -9,25 +10,40 @@ namespace VRRoom
 {
     public class MenuManager : MonoBehaviour
     {
+        [Header("Panels")]
         public GameObject panelCreateRoom;
         public GameObject panelLogin;
         public GameObject panelLobby;
         public GameObject panelEditProfile;
 
-        public Button btnLogin;
-        public Button btnCreateRoom;
+        [Header("Lobby Panel")]
+        public Button btnSwitchToLogin;
+        public Button btnSwitchToCreateRoom;
         public Button btnEditProfile;
         public Button btnCreateRoom_Testing;
         public Button btnReconnect;
-
         public TMP_Text lblLoggedInInfo;
         public TMP_Text lblUsername;
         public TMP_Text lblConnState;
 
-        public GameObject objRoomListContent;
-        public GameObject objRoomListEntryPrefab;
+        [Header("Login Panel")]
+        public TMP_InputField inpUsername;
+        public TMP_InputField inpPassword;
+        public TMP_Text lblLoginError;
+
+        [Header("Edit Profile Panel")]
+        public TMP_InputField inpChangeUsername;
+
+        [Header("Create Room Panel")]
+        public TMP_InputField inpRoomName;
+        public TMP_InputField inpMaxPlayers;
+        public Toggle chkLoginRequired;
+        public Dropdown dropdownRoomType;
+        public Button btnCreateRoom;
+        public TMP_Text lblCreateRoomError;
 
         public AccountManager accountManager;
+        public NetworkManager networkManager;
 
         // Start is called before the first frame update
         void Start()
@@ -45,11 +61,15 @@ namespace VRRoom
 
         public void OnClickSwitchToCreateRoom()
         {
+            lblCreateRoomError.text = "";
+            inpRoomName.text = "";
             switchToPanel("panelCreateRoom");
         }
 
         public void OnClickSwitchToLogin()
         {
+            lblLoginError.text = "";
+            inpPassword.text = "";
             switchToPanel("panelLogin");
         }
 
@@ -60,6 +80,7 @@ namespace VRRoom
 
         public void OnClickSwitchToConfig()
         {
+            inpChangeUsername.text = accountManager.GetCurrentUserdata().name;
             switchToPanel("panelEditProfile");
         }
 
@@ -71,6 +92,19 @@ namespace VRRoom
             panelEditProfile.SetActive(name.Equals(panelEditProfile.name));
         }
 
+        public void OnClickLogin()
+        {
+            if ( false == accountManager.Login(inpUsername.text, inpPassword.text) )
+            {
+                lblLoginError.text = "Ungültige Anmeldedaten!";
+            }
+        }
+
+        public void OnClickLogout()
+        {
+            accountManager.Logout();
+        }
+
         public void loginForRestrictedRoom(string roomName)
         {
             switchToPanel("panelLogin");
@@ -80,7 +114,7 @@ namespace VRRoom
         public void OnUserLoggedIn(UserData userdata)
         {
             // activate/deactive game objects...
-            btnLogin.gameObject.SetActive(false);
+            btnSwitchToLogin.gameObject.SetActive(false);
             btnEditProfile.gameObject.SetActive(true);
             lblLoggedInInfo.gameObject.SetActive(true);
             lblUsername.gameObject.SetActive(true);
@@ -94,13 +128,33 @@ namespace VRRoom
         public void OnUserLoggedOut()
         {
             // activate/deactive game objects...
-            btnLogin.gameObject.SetActive(true);
+            btnSwitchToLogin.gameObject.SetActive(true);
             btnEditProfile.gameObject.SetActive(false);
             lblLoggedInInfo.gameObject.SetActive(false);
             lblUsername.gameObject.SetActive(false);
             btnCreateRoom.gameObject.SetActive(false);
 
             OnClickSwitchToLobby();
+        }
+
+        public void OnClickApplyProfileChanges()
+        {
+            string newName = inpChangeUsername.text;
+            // account manager updates network manager
+            accountManager.changeUsername(newName);
+            lblUsername.text = newName;
+        }
+
+        public void OnClickCreateRoom()
+        {
+            // get selected room type
+            string roomType = dropdownRoomType.options[dropdownRoomType.value].text;
+            string roomName = inpRoomName.text;
+            int maxPlayers = 0;
+            Int32.TryParse(inpMaxPlayers.text, out maxPlayers);
+            bool isLoginRequired = chkLoginRequired.isOn;
+
+            networkManager.CreateRoom(roomType, roomName, maxPlayers, isLoginRequired);
         }
 
         public void OnServerConnStateChanged(bool isConnecting, bool isConnected)
@@ -124,7 +178,7 @@ namespace VRRoom
                 btnReconnect.gameObject.SetActive(true);
             }
 
-            btnLogin.interactable = isConnected;
+            btnSwitchToLogin.interactable = isConnected;
             btnCreateRoom.interactable = isConnected;
             btnCreateRoom_Testing.interactable = isConnected; 
         }
@@ -132,18 +186,6 @@ namespace VRRoom
         public void enableVR(bool enable)
         {
             XRSettings.enabled = enable;
-        }
-
-        // just for testing
-        private void simulateRooms()
-        {
-            GameObject entry = Instantiate(objRoomListEntryPrefab);
-            entry.transform.SetParent(objRoomListContent.transform);
-            entry.transform.localScale = Vector3.one;
-            // We have to set z-coordinate explicitly to zero because it somehow has a random value after creation
-            // and as a result the component is not visible (because of 2D view)
-            entry.transform.localPosition = new Vector3(entry.transform.position.x, entry.transform.position.y, 0f);
-            entry.GetComponent<RoomListEntry>().Initialize("test", (byte)5, 20, false, this);
         }
     }
 }

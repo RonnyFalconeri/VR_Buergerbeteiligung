@@ -10,14 +10,10 @@ namespace VRRoom
 {
     public class NetworkManager : MonoBehaviourPunCallbacks
     {
-        [Header("Join Room Panel")]
+        [Header("gui elements")]
         public GameObject objRoomListContent;
         public GameObject objRoomListEntryPrefab;
-
-        [Header("Create Room Panel")]
-        public TMP_InputField inpRoomName;
-        public Dropdown dropdownRoomType;
-        public Button btnCreateRoom;
+        public TMP_Text lblCreateRoomError;
 
         [Header("Other")]
         public MenuManager menuManager;
@@ -69,7 +65,7 @@ namespace VRRoom
             isConnected = false;
             menuManager.OnServerConnStateChanged(isConnecting, isConnected);
             menuManager.switchToPanel("panelLobby");
-            accountManager.OnClickLogout();
+            accountManager.Logout();
         }
 
         public override void OnConnectedToMaster()
@@ -86,6 +82,13 @@ namespace VRRoom
                 Debug.Log("Joined default lobby.");
                 PhotonNetwork.JoinLobby();
             }
+
+            PhotonNetwork.LocalPlayer.CustomProperties = new ExitGames.Client.Photon.Hashtable();
+            UserData userdata = new UserData();
+            userdata.name = "anonymous";
+            userdata.isModerator = false;
+            userdata.avatar = "default";
+            updateUserData(userdata);
         }
 
         public override void OnRoomListUpdate(List<RoomInfo> roomList)
@@ -103,34 +106,25 @@ namespace VRRoom
             ClearRoomListView();
         }
 
-        public void OnClickCreateRoom()
+        public void CreateRoom(string roomType, string roomName, int maxPlayers, bool isLoginRequired)
         {
-            //RoomOptions roomOptions = new RoomOptions();
-            //roomOptions.CustomRoomPropertiesForLobby = { "map", "ai" };
-            //roomOptions.CustomRoomProperties = new Hashtable() { { "map", 1 } };
-            //roomOptions.MaxPlayers = expectedMaxPlayers;
-            string[] properties = new string[1];
+            RoomOptions roomOptions = new RoomOptions();
+            roomOptions.MaxPlayers = (byte)maxPlayers;
 
-            // get selected room type
-            string roomType = dropdownRoomType.options[dropdownRoomType.value].text;
+            // create hashtable with room properties
+            roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable();
+            // we store room name as property because we will use unique UUID for photon's own room name
+            roomOptions.CustomRoomProperties.Add("name", roomName);
+            roomOptions.CustomRoomProperties.Add("type", roomType);
+            roomOptions.CustomRoomProperties.Add("login", isLoginRequired);
 
-            switch ( roomType )
-            {
-            case "Präsentationsraum":
-                properties[0] = "P";
-                break;
-            case "Besprechungsraum":
-                properties[0] = "B";
-                break;
-            case "Foyer":
-                properties[0] = "F";
-                break;
-            default:
-                    break;
-            }
+            // set the keys which are available in lobby
+            roomOptions.CustomRoomPropertiesForLobby = new string[3];
+            roomOptions.CustomRoomPropertiesForLobby[0] = "name";
+            roomOptions.CustomRoomPropertiesForLobby[1] = "type";
+            roomOptions.CustomRoomPropertiesForLobby[2] = "login";
 
-            // TODO check if roomname already exists
-            PhotonNetwork.CreateRoom(inpRoomName.text, new RoomOptions{ MaxPlayers = 20, CustomRoomPropertiesForLobby = properties});
+            PhotonNetwork.CreateRoom("", roomOptions);
         }
 
         // join room is called from RoomListEntry.cs
@@ -139,20 +133,19 @@ namespace VRRoom
             bool roomEntered = false;
             isJoining = false;
             Debug.Log("Joined Room " + PhotonNetwork.CurrentRoom.Name + " | Master: " + PhotonNetwork.IsMasterClient + " | Members online: " + PhotonNetwork.CurrentRoom.PlayerCount);
-
             // get room type and load related scene
-            string roomType = PhotonNetwork.CurrentRoom.PropertiesListedInLobby[0];
+            string roomType = (string)PhotonNetwork.CurrentRoom.CustomProperties["type"];
             switch (roomType)
             {
-            case "P":
+            case "Präsentationsraum":
                 UnityEngine.SceneManagement.SceneManager.LoadScene("Presentation");
                 roomEntered = true;
                 break;
-            case "B":
+            case "Besprechungsraum":
                 UnityEngine.SceneManagement.SceneManager.LoadScene("Meeting");
                 roomEntered = true;
                 break;
-            case "F":
+            case "Foyer":
                 UnityEngine.SceneManagement.SceneManager.LoadScene("Foyer");
                 roomEntered = true;
                 break;
@@ -177,6 +170,7 @@ namespace VRRoom
         {
             Debug.Log(message);
             isJoining = false;
+            lblCreateRoomError.text = "Fehler beim Erstellen des Raumes.";
         }
 
         public override void OnJoinRoomFailed(short returnCode, string message)
@@ -188,8 +182,22 @@ namespace VRRoom
         public void updateUserData(UserData userdata)
         {
             PhotonNetwork.LocalPlayer.NickName = userdata.name;
-            PhotonNetwork.LocalPlayer.CustomProperties.Add("isMod", userdata.isModerator);
-            PhotonNetwork.LocalPlayer.CustomProperties.Add("avatar", userdata.avatar);
+            if ( true == PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("isMod") )
+            {
+                PhotonNetwork.LocalPlayer.CustomProperties["isMod"] = userdata.isModerator;
+            }
+            else
+            {
+                PhotonNetwork.LocalPlayer.CustomProperties.Add("isMod", userdata.isModerator);
+            }
+            if ( true == PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("avatar") )
+            {
+                PhotonNetwork.LocalPlayer.CustomProperties["avatar"] = userdata.avatar;
+            }
+            else
+            {
+                PhotonNetwork.LocalPlayer.CustomProperties.Add("avatar", userdata.avatar);
+            }     
         }
 
         public void OnUserLoggedOut()
@@ -238,9 +246,6 @@ namespace VRRoom
 
         private void UpdateRoomListView()
         {
-            bool isLoginNeeded = true;
-
-            bool showLogin = (isLoginNeeded && accountManager.IsLoggedIn()); 
             // Iterate cached list and create one line per room via prefab entry
             foreach ( RoomInfo roomInfo in cachedRoomList.Values )
             {
@@ -250,7 +255,14 @@ namespace VRRoom
                 // We have to set z-coordinate explicitly to zero because it somehow has a random value after creation
                 // and as a result the component is not visible (because of 2D view)
                 entry.transform.localPosition = new Vector3(entry.transform.position.x, entry.transform.position.y, 0f);
-                entry.GetComponent<VRRoom.RoomListEntry>().Initialize(roomInfo.Name, (byte)roomInfo.PlayerCount, roomInfo.MaxPlayers, isLoginNeeded, menuManager);
+
+                // Get room info and set roomlist entry accordingly
+                bool isLoginNeeded = (bool)roomInfo.CustomProperties["login"];
+                bool showLogin      = (isLoginNeeded && (false == accountManager.IsLoggedIn()));
+                string roomName     = (string)roomInfo.CustomProperties["name"];
+                string internalName = roomInfo.Name;
+
+                entry.GetComponent<VRRoom.RoomListEntry>().Initialize(roomName, internalName, (byte)roomInfo.PlayerCount, roomInfo.MaxPlayers, showLogin, menuManager);
 
                 roomListEntries.Add(roomInfo.Name, entry);
             }

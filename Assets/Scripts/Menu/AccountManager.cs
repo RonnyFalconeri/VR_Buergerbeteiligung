@@ -15,11 +15,6 @@ namespace VRRoom
 
     public class AccountManager : MonoBehaviour
     {
-        [Header("GUI elements")]
-        public TMP_InputField inpUsername;
-        public TMP_InputField inpPassword;
-        public TMP_Text lblLoginError;
-
         [Header("Other")]
         public MenuManager menuManager;
         public NetworkManager networkManager;
@@ -33,6 +28,7 @@ namespace VRRoom
         void Start()
         {
             roomNameAfterLogin = "";
+            userdata = new UserData();
             isLoggedIn = false;
         }
 
@@ -55,12 +51,10 @@ namespace VRRoom
             menuManager.OnClickSwitchToLobby();
         }
 
-        public void OnClickLogin()
+        public bool Login(string username, string password)
         {
-            lblLoginError.text = "";
-
             // This should of course call a webserver for validating account data and receiving user data...
-            if ( simulateLoginRequest(inpUsername.text, inpPassword.text, ref userdata) )
+            if ( simulateLoginRequest(username, password, ref userdata) )
             {
                 isLoggedIn = true;
                 // publish the user data
@@ -77,17 +71,19 @@ namespace VRRoom
                     // go back to lobby
                     menuManager.OnClickSwitchToLobby();
                 }
+                
+                return true;
             }
             else
             {
-                lblLoginError.text = "Ungültige Anmeldedaten!";
+                return false;
             }
         }
 
         private bool simulateLoginRequest(string username, string password, ref UserData userdata)
         {
             // we simulate a webserver here which accesses the user database
-            if ( (0 < username.Length) || (0 < password.Length) )
+            if ( (0 < username.Length) && (0 < password.Length) )
             {
                 // for demo purposes every non-empty user/pw is accepted
                 userdata = new UserData();
@@ -108,15 +104,32 @@ namespace VRRoom
             }
         }
 
-        public void OnClickLogout()
+        public void Logout()
         {
+            userdata = new UserData();
+            userdata.name = "";
+            userdata.avatar = "default";
+            userdata.isModerator = false;
+            isLoggedIn = false;
+
             menuManager.OnUserLoggedOut();
             networkManager.OnUserLoggedOut();
+        }
+
+        public void changeUsername(string username)
+        {
+            userdata.name = username;
+            networkManager.updateUserData(userdata);
         }
 
         public bool IsLoggedIn()
         {
             return isLoggedIn;
+        }
+
+        public UserData GetCurrentUserdata()
+        {
+            return userdata;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace VRRoom
         private VoteMaster voteMaster;
         private bool votingPossible = false;
 
-        private bool isModerator;
+        private bool isModerator = false;
 
         // Start is called before the first frame update
         void Start()
@@ -20,7 +20,7 @@ namespace VRRoom
             if ( PhotonNetwork.IsConnected )
             {
                 isModerator = (bool)PhotonNetwork.LocalPlayer.CustomProperties["isMod"];
-                if ( isModerator )
+                if (isModerator)
                 {
                     // moderator manages voting
                     voteMaster = new VoteMaster();
