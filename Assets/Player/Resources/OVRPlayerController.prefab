@@ -2081,7 +2081,6 @@ GameObject:
   - component: {fileID: 4515294862585631334}
   - component: {fileID: 7299145981760604839}
   - component: {fileID: 8985455533311262433}
-  - component: {fileID: 4369566159887541447}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -2150,19 +2149,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Abstimmung
---- !u!114 &4369566159887541447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1876719184962137976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e80e8883d40449d28be18b2de7c548f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  voteTopic: {fileID: 8985455533311262433}
 --- !u!1 &1944818648889286135
 GameObject:
   m_ObjectHideFlags: 0
