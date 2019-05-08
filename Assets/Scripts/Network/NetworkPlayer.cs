@@ -55,16 +55,20 @@ namespace VRRoom
 
         public void OnClickVoted(string vote)
         {
-            SendVoteToModerator(vote);
+            if ( votingPossible )
+            {
+                SendVoteToModerator(vote);
+            }
+
+            ToggleVotingMenu(false);
         }
 
-        public void OnClickStartVoting()
+        public void OnClickStartVoting(string topic)
         {
             // called when moderator starts voting
             // remove old votings before
             PhotonNetwork.RemoveRPCs(PhotonNetwork.LocalPlayer);
-            // TODO get topic from input
-            string topic = "Seid ihr dafür?";
+
             voteMaster.Create_New_Voting(topic);
             this.photonView.RPC("OnVotingStarted", RpcTarget.OthersBuffered, topic);
         }
@@ -82,11 +86,17 @@ namespace VRRoom
         
         public void SendVoteToModerator(string vote)
         {
-            if ( votingPossible )
+            votingPossible = false;
+            // vote is send to all players, but moderator filters in method
+            this.photonView.RPC("OnVoted", RpcTarget.AllViaServer, vote);
+        }
+
+        private void ToggleVotingMenu(bool visible)
+        {
+            GameObject voteMenu = GameObject.Find("OVRPlayerController/Inworld_Vote");
+            if (null != voteMenu)
             {
-                votingPossible = false;
-                // vote is send to all players, but moderator filters in method
-                this.photonView.RPC("OnVoted", RpcTarget.AllViaServer, vote);
+                voteMenu.SetActive(visible);
             }
         }
 
@@ -95,12 +105,15 @@ namespace VRRoom
         {
             Debug.Log("Neue Abstimmung: " + request + "\r\n" + "'g' für ja, 'h' für nein.");
             votingPossible = true;
+            // activate menu
+            ToggleVotingMenu(true);
         }
 
         [PunRPC]
         public void OnVotingFinished()
         {
             votingPossible = false;
+            ToggleVotingMenu(false);
         }
 
         [PunRPC]

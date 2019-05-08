@@ -313,12 +313,12 @@ GameObject:
   - component: {fileID: 700953285}
   - component: {fileID: 700953286}
   m_Layer: 5
-  m_Name: Toggle
+  m_Name: VotingMenu_Toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &700953285
 RectTransform:
   m_ObjectHideFlags: 0
@@ -397,6 +397,51 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_IsOn: 1
+--- !u!1 &831575070
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 831575071}
+  - component: {fileID: 831575072}
+  m_Layer: 0
+  m_Name: VotingHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &831575071
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 831575070}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8592815063178468433}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &831575072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 831575070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bef2fe1edc71fad4686818cc220bdfb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggleModMenu: {fileID: 700953286}
+  Field: {fileID: 1326916132}
 --- !u!1 &1196070023
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,7 +832,6 @@ GameObject:
   - component: {fileID: 1640252385}
   - component: {fileID: 1640252384}
   - component: {fileID: 1640252383}
-  - component: {fileID: 1640252386}
   m_Layer: 5
   m_Name: Start_Vote_Button
   m_TagString: Untagged
@@ -892,9 +936,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1640252386}
-        m_MethodName: GetText
+      - m_Target: {fileID: 831575072}
+        m_MethodName: StartVoting
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2076325438}
+        m_MethodName: set_enabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -905,20 +960,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &1640252386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1640252381}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2939de1af411c494981280878cfb808b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Field: {fileID: 1326916132}
-  TextFromInput: 
 --- !u!1 &1789881051
 GameObject:
   m_ObjectHideFlags: 0
@@ -3788,7 +3829,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3256882952426751917
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4632,6 +4673,7 @@ Transform:
   - {fileID: 8345914634462459471}
   - {fileID: 3256882952426751917}
   - {fileID: 2076325437}
+  - {fileID: 831575071}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0.061000004, y: -94, z: -1.391}
@@ -5187,6 +5229,111 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6726111074458407642, guid: 2a14ed721d23440adb64533dd5af4e7a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6726111074458407642, guid: 2a14ed721d23440adb64533dd5af4e7a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 831575072}
+    - target: {fileID: 6726111074458407642, guid: 2a14ed721d23440adb64533dd5af4e7a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickVoted
+      objectReference: {fileID: 0}
+    - target: {fileID: 6726111074458407642, guid: 2a14ed721d23440adb64533dd5af4e7a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6726111074458407642, guid: 2a14ed721d23440adb64533dd5af4e7a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6726111074458407642, guid: 2a14ed721d23440adb64533dd5af4e7a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: yes
+      objectReference: {fileID: 0}
+    - target: {fileID: 6726111074458407642, guid: 2a14ed721d23440adb64533dd5af4e7a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6261083654210256741, guid: 2a14ed721d23440adb64533dd5af4e7a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6261083654210256741, guid: 2a14ed721d23440adb64533dd5af4e7a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 831575072}
+    - target: {fileID: 6261083654210256741, guid: 2a14ed721d23440adb64533dd5af4e7a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickVoted
+      objectReference: {fileID: 0}
+    - target: {fileID: 6261083654210256741, guid: 2a14ed721d23440adb64533dd5af4e7a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6261083654210256741, guid: 2a14ed721d23440adb64533dd5af4e7a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6261083654210256741, guid: 2a14ed721d23440adb64533dd5af4e7a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: abstinence
+      objectReference: {fileID: 0}
+    - target: {fileID: 6261083654210256741, guid: 2a14ed721d23440adb64533dd5af4e7a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975328546869550142, guid: 2a14ed721d23440adb64533dd5af4e7a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975328546869550142, guid: 2a14ed721d23440adb64533dd5af4e7a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 831575072}
+    - target: {fileID: 7975328546869550142, guid: 2a14ed721d23440adb64533dd5af4e7a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickVoted
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975328546869550142, guid: 2a14ed721d23440adb64533dd5af4e7a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975328546869550142, guid: 2a14ed721d23440adb64533dd5af4e7a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975328546869550142, guid: 2a14ed721d23440adb64533dd5af4e7a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: no
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975328546869550142, guid: 2a14ed721d23440adb64533dd5af4e7a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a14ed721d23440adb64533dd5af4e7a, type: 3}

@@ -38,7 +38,7 @@ namespace VRRoom
                 btnJoinLoginRoomButton.onClick.AddListener(() =>
                 {
                     Debug.Log("joining" + roomName);
-                    PhotonNetwork.JoinRoom(roomName);
+                    PhotonNetwork.JoinRoom(internalName);
                 });
             }
             else

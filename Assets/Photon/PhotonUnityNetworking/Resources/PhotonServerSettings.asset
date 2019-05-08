@@ -34,5 +34,6 @@ MonoBehaviour:
   - RespawnSpaceship
   - OnVoted
   - OnVotingStarted
+  - OnVotingFinished
   DisableAutoOpenWizard: 1
   ShowSettings: 0
