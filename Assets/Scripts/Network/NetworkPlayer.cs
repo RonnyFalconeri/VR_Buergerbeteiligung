@@ -1,6 +1,7 @@
 ﻿using Photon.Pun;
 using UnityEngine;
 
+
 namespace VRRoom
 {
     public class NetworkPlayer : MonoBehaviourPun, IPunObservable

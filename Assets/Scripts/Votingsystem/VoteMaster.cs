@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.IO;
 
 namespace VRRoom
 {
@@ -9,6 +8,7 @@ namespace VRRoom
         private int Yes_Voters = 0;
         private int No_Voters = 0;
         private int Amount_Voters = 0;
+        private string Voting_Name;
 
         public void Vote(string Opinion)
         {
@@ -16,8 +16,7 @@ namespace VRRoom
             if (Opinion == "yes")
             {
                 Yes_Voters++;
-            }
-            else
+            } else
             if (Opinion == "no")
             {
                 No_Voters++;
@@ -39,6 +38,14 @@ namespace VRRoom
         public void Get_Result()
         {
             Debug.Log("Result (Yes | No):  " + Yes_Voters + " | " + No_Voters);
+        }
+
+        public void Write_File(string path, string data)
+        {
+            //write text in file
+            StreamWriter writer = new StreamWriter(path, true);
+            writer.WriteLine(data);
+            writer.Close();
         }
     }
 }
