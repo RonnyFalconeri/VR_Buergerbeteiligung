@@ -1056,6 +1056,7 @@ GameObject:
   - component: {fileID: 233641751}
   - component: {fileID: 233641750}
   - component: {fileID: 233641749}
+  - component: {fileID: 233641754}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1177,6 +1178,20 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &233641754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 233641747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5785e27aba849ac40b765ec00f0e90ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Room: Foyer
+  Name: west2
 --- !u!4 &389614326 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6503994314306275437, guid: 9ae60eacad7c7ee4c8a2fc49d1a675fc,
@@ -2056,6 +2071,7 @@ GameObject:
   - component: {fileID: 591117472}
   - component: {fileID: 591117471}
   - component: {fileID: 591117470}
+  - component: {fileID: 591117475}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2177,6 +2193,20 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &591117475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591117468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5785e27aba849ac40b765ec00f0e90ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Room: Foyer
+  Name: west1
 --- !u!1 &687659551
 GameObject:
   m_ObjectHideFlags: 0
@@ -2191,6 +2221,7 @@ GameObject:
   - component: {fileID: 687659553}
   - component: {fileID: 687659557}
   - component: {fileID: 687659556}
+  - component: {fileID: 687659558}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2312,6 +2343,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 687659551}
   m_CullTransparentMesh: 0
+--- !u!114 &687659558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 687659551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5785e27aba849ac40b765ec00f0e90ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Room: Foyer
+  Name: rear
 --- !u!1 &743707364
 GameObject:
   m_ObjectHideFlags: 0
@@ -3447,7 +3492,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh36606
+  m_Name: pb_Mesh60020
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -4756,6 +4801,7 @@ GameObject:
   - component: {fileID: 1324795610}
   - component: {fileID: 1324795609}
   - component: {fileID: 1324795608}
+  - component: {fileID: 1324795613}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -4877,6 +4923,20 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1324795613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324795606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5785e27aba849ac40b765ec00f0e90ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Room: Foyer
+  Name: east1
 --- !u!1 &1328235559
 GameObject:
   m_ObjectHideFlags: 0
@@ -4891,6 +4951,7 @@ GameObject:
   - component: {fileID: 1328235563}
   - component: {fileID: 1328235562}
   - component: {fileID: 1328235561}
+  - component: {fileID: 1328235566}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -5012,6 +5073,20 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1328235566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1328235559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5785e27aba849ac40b765ec00f0e90ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Room: Foyer
+  Name: front
 --- !u!1 &1382206536
 GameObject:
   m_ObjectHideFlags: 0
@@ -6572,6 +6647,7 @@ GameObject:
   - component: {fileID: 1490922839}
   - component: {fileID: 1490922838}
   - component: {fileID: 1490922837}
+  - component: {fileID: 1490922842}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -6693,6 +6769,20 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1490922842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1490922835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5785e27aba849ac40b765ec00f0e90ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Room: Foyer
+  Name: east2
 --- !u!224 &1544276540 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9093745474782745521, guid: 6194f3005a6575043ad9ad9e12ef5fa4,
@@ -13157,6 +13247,7 @@ GameObject:
   - component: {fileID: 2002402587}
   - component: {fileID: 2002402586}
   - component: {fileID: 2002402585}
+  - component: {fileID: 2002402590}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -13278,6 +13369,20 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &2002402590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2002402583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5785e27aba849ac40b765ec00f0e90ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Room: Foyer
+  Name: east3
 --- !u!1 &2025138664
 GameObject:
   m_ObjectHideFlags: 0
@@ -15015,3 +15120,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6194f3005a6575043ad9ad9e12ef5fa4, type: 3}
+--- !u!1 &9093745475386218894 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9093745474846168154, guid: 6194f3005a6575043ad9ad9e12ef5fa4,
+    type: 3}
+  m_PrefabInstance: {fileID: 9093745475386218893}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9093745475386218895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9093745475386218894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5785e27aba849ac40b765ec00f0e90ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Room: Foyer
+  Name: west3
