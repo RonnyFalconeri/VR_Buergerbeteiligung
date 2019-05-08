@@ -11,7 +11,7 @@ namespace VRRoom
         private Transform player;
         private Transform playerCamera;
         private VoteMaster voteMaster;
-        private bool votingPossible = false;
+        public bool votingPossible = false;
 
         private bool isModerator = false;
 
@@ -112,7 +112,8 @@ namespace VRRoom
         public void OnVotingStarted(string request)
         {
             Debug.Log("Neue Abstimmung: " + request);
-            votingPossible = true;
+            this.votingPossible = true;
+            Debug.Log("voting possible: " +votingPossible);
             // activate menu
             ToggleVotingMenu(true);
         }

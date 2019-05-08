@@ -47,6 +47,7 @@ namespace VRRoom
             {
                 Transform transform = player.transform;
                 NetworkPlayer networkPlayer = (NetworkPlayer)transform.GetComponent("NetworkPlayer");
+                Debug.Log("click will now be transfered, voting enabled:" + networkPlayer.votingPossible);
                 if ( null != networkPlayer )
                 {
                     networkPlayer.OnClickVoted(vote);
