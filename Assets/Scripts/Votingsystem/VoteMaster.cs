@@ -23,11 +23,12 @@ namespace VRRoom
             }
         }
 
-        public void Reset_Voting()
+        public void Create_New_Voting(string name)
         {
             Yes_Voters = 0;
             No_Voters = 0;
             Amount_Voters = 0;
+            Voting_Name = name;
         }
 
         public int Get_Voter_Count()
