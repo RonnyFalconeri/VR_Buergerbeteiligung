@@ -7,15 +7,21 @@ namespace VRRoom
     public class NetworkPlayer : MonoBehaviourPun, IPunObservable
     {
         public GameObject avatar;
-
         private Transform player;
         private Transform playerCamera;
+
+        bool isMod = false;
 
         // Start is called before the first frame update
         void Start()
         {
-            // only for own player connect avatar to the controller
-            if ( (photonView.IsMine) || (false == PhotonNetwork.IsConnected) )
+            if ( 0 == SceneManagerHelper.ActiveSceneName.CompareTo("Presentation") )
+            {
+                // don't show avatars in presentation (but moderator avatar gets reenabled)
+                avatar.SetActive(false);
+            }
+
+            if ( photonView.IsMine )
             {
                 // get OVRPlayerController and center camera
                 player = GameObject.Find("OVRPlayerController").transform;
@@ -27,16 +33,32 @@ namespace VRRoom
                 // disable avatar for own player so it doesnt disturb the view
                 avatar.SetActive(false);
 
-                if ( 0 == SceneManagerHelper.ActiveSceneName.CompareTo("Presentation") )
+                if ( false == (bool)PhotonNetwork.LocalPlayer.CustomProperties["isMod"])
                 {
-                    // in presentation room, disable movement
-                    OVRPlayerController controller = (OVRPlayerController)player.GetComponent("OVRPlayerController");
-                    if ( null != controller )
+                    if ( 0 == SceneManagerHelper.ActiveSceneName.CompareTo("Presentation") )
                     {
-                        controller.EnableLinearMovement = false;
+                        // in presentation room, disable movement for all non mods
+                        OVRPlayerController controller = (OVRPlayerController)player.GetComponent("OVRPlayerController");
+                        if (null != controller)
+                        {
+                            controller.EnableLinearMovement = false;
+                        }
                     }
                 }
+                else
+                {
+                    // notify others about moderator state
+                    isMod = true;
+                    this.photonView.RPC("MarkAsModerator", RpcTarget.OthersBuffered);
+                }
             }
+        }
+
+        [PunRPC]
+        public void MarkAsModerator()
+        {
+            isMod = true;
+            avatar.SetActive(true);
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
