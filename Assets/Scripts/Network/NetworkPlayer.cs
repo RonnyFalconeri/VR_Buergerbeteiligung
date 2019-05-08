@@ -1,6 +1,6 @@
 ﻿using Photon.Pun;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 namespace VRRoom
 {
@@ -61,7 +61,7 @@ namespace VRRoom
                 SendVoteToModerator(vote);
             }
 
-            ToggleVotingMenu(false);
+            ToggleVotingMenu(false, "");
         }
 
         public void OnClickStartVoting(string topic)
@@ -71,7 +71,7 @@ namespace VRRoom
             PhotonNetwork.RemoveRPCs(PhotonNetwork.LocalPlayer);
             Debug.Log("transmit voting to players now");
             voteMaster.Create_New_Voting(topic);
-            this.photonView.RPC("OnVotingStarted", RpcTarget.OthersBuffered, topic);
+            this.photonView.RPC("OnVotingStarted", RpcTarget.AllBufferedViaServer, topic);
         }
 
         public void OnClickFinishVoting()
@@ -93,9 +93,9 @@ namespace VRRoom
             this.photonView.RPC("OnVoted", RpcTarget.AllViaServer, vote);
         }
 
-        private void ToggleVotingMenu(bool visible)
+        private void ToggleVotingMenu(bool visible, string request)
         {
-            Debug.Log("trying to open voting menu");
+            Debug.Log("trying to open votingmenu");
             GameObject voteMenu = GameObject.Find("OVRPlayerController/Inworld_Vote");
             if (null != voteMenu)
             {
@@ -104,6 +104,15 @@ namespace VRRoom
                 if ( null != canvas )
                 {
                     canvas.enabled = visible;
+                }
+                Transform textobj = voteMenu.transform.Find("Text");
+                if ( null != textobj )
+                {
+                    Text topic = (Text)textobj.GetComponent("Text");
+                    if ( null != topic )
+                    {
+                        topic.text = request;
+                    }
                 }
             }
         }
@@ -115,7 +124,7 @@ namespace VRRoom
             this.votingPossible = true;
             Debug.Log("voting possible: " +votingPossible);
             // activate menu
-            ToggleVotingMenu(true);
+            ToggleVotingMenu(true, request);
         }
 
         [PunRPC]
@@ -123,7 +132,7 @@ namespace VRRoom
         {
             Debug.Log("voting finished");
             votingPossible = false;
-            ToggleVotingMenu(false);
+            ToggleVotingMenu(false, "");
         }
 
         [PunRPC]

@@ -83,6 +83,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   avatar: {fileID: 1131258839210345626}
+  votingPossible: 0
 --- !u!1001 &1132045591381464192
 PrefabInstance:
   m_ObjectHideFlags: 0
