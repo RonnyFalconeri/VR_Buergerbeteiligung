@@ -55,7 +55,7 @@ namespace VRRoom
 
         public void OnClickVoted(string vote)
         {
-            Debug.Log("voting clicked");
+            Debug.Log("voting clicked, voting is possible:" + votingPossible);
             if ( votingPossible )
             {
                 SendVoteToModerator(vote);
@@ -120,6 +120,7 @@ namespace VRRoom
         [PunRPC]
         public void OnVotingFinished()
         {
+            Debug.Log("voting finished");
             votingPossible = false;
             ToggleVotingMenu(false);
         }
