@@ -1,13 +1,11 @@
 ﻿using System.IO;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class LoadImage : MonoBehaviour
 {
-    // Edit this two for each blackboard
-    public string Room, Name;
-
+    
+    public string Room, Name; // Edit this two for each blackboard
     private string FilePath;
     byte[] FileData;
     private RawImage Media_RawImage;
@@ -18,7 +16,7 @@ public class LoadImage : MonoBehaviour
     void Start()
     {
 
-        FilePath = "C:\\Users\\ronny_f6nb3z1\\Desktop\\Blackboard_Media\\" + Room + "\\" + Name + ".jpg";
+        FilePath = Application.dataPath + "/Blackboard_Media/" + Room + "/" + Name + ".jpg";
 
         // if file exists, load the image
         if (File.Exists(FilePath))

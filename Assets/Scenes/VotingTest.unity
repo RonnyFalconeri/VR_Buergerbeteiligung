@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Room: Foyer
-  Name: west1
+  Name: east1
 --- !u!1 &924581548
 GameObject:
   m_ObjectHideFlags: 0
