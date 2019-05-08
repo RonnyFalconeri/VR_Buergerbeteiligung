@@ -40,7 +40,13 @@ namespace VRRoom
             Debug.Log("Result (Yes | No):  " + Yes_Voters + " | " + No_Voters);
         }
 
-        public void Write_File(string path, string data)
+        public void Save_Result()
+        {
+            string Result = Voting_Name+": (Yes | No):  " + Yes_Voters + " | " + No_Voters;
+            Write_File(Result, "C:\\Users\\ronny_f6nb3z1\\Desktop\\Blackboard_Media\\"+Voting_Name+".txt");
+        }
+
+        private void Write_File(string path, string data)
         {
             //write text in file
             StreamWriter writer = new StreamWriter(path, true);
