@@ -55,6 +55,7 @@ namespace VRRoom
 
         public void OnClickVoted(string vote)
         {
+            Debug.Log("voting clicked");
             if ( votingPossible )
             {
                 SendVoteToModerator(vote);
@@ -68,7 +69,7 @@ namespace VRRoom
             // called when moderator starts voting
             // remove old votings before
             PhotonNetwork.RemoveRPCs(PhotonNetwork.LocalPlayer);
-
+            Debug.Log("transmit voting to players now");
             voteMaster.Create_New_Voting(topic);
             this.photonView.RPC("OnVotingStarted", RpcTarget.OthersBuffered, topic);
         }
@@ -86,6 +87,7 @@ namespace VRRoom
         
         public void SendVoteToModerator(string vote)
         {
+            Debug.Log("sending vote to mod now");
             votingPossible = false;
             // vote is send to all players, but moderator filters in method
             this.photonView.RPC("OnVoted", RpcTarget.AllViaServer, vote);
@@ -93,9 +95,11 @@ namespace VRRoom
 
         private void ToggleVotingMenu(bool visible)
         {
+            Debug.Log("trying to open voting menu");
             GameObject voteMenu = GameObject.Find("OVRPlayerController/Inworld_Vote");
             if (null != voteMenu)
             {
+                Debug.Log("voting menu found, will be opened");
                 voteMenu.SetActive(visible);
             }
         }
@@ -103,7 +107,7 @@ namespace VRRoom
         [PunRPC]
         public void OnVotingStarted(string request)
         {
-            Debug.Log("Neue Abstimmung: " + request + "\r\n" + "'g' für ja, 'h' für nein.");
+            Debug.Log("Neue Abstimmung: " + request);
             votingPossible = true;
             // activate menu
             ToggleVotingMenu(true);

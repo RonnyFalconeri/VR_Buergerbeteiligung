@@ -26,14 +26,15 @@ namespace VRRoom
             string topic = Field.text;
             Debug.Log("Starting vote" + topic);
 
-            Transform controller = GameObject.Find("OVRPlayerController").transform;
-            Transform player = controller.Find("OVRCameraRig/TrackingSpace/CenterEyeAnchor/NetworkPlayer");
-            
+            GameObject player = GameObject.Find("OVRPlayerController/NetworkPlayer(Clone)");
             if ( null != player )
             {
-                NetworkPlayer networkPlayer = (NetworkPlayer)player.GetComponent("NetworkPlayer");
+                Debug.Log("player found");
+                Transform transform = player.transform;
+                NetworkPlayer networkPlayer = (NetworkPlayer)transform.GetComponent("NetworkPlayer");
                 if (null != networkPlayer )
                 {
+                    Debug.Log("playernetwork found");
                     networkPlayer.OnClickStartVoting(topic);
                 }
             }
@@ -41,12 +42,11 @@ namespace VRRoom
 
         public void OnClickVoted(string vote)
         {
-            Transform controller = GameObject.Find("OVRPlayerController").transform;
-            Transform player = controller.Find("OVRCameraRig/TrackingSpace/CenterEyeAnchor/NetworkPlayer");
-
-            if ( null != player )
+            GameObject player = GameObject.Find("OVRPlayerController/NetworkPlayer(Clone)");
+            if (null != player)
             {
-                NetworkPlayer networkPlayer = (NetworkPlayer)player.GetComponent("NetworkPlayer");
+                Transform transform = player.transform;
+                NetworkPlayer networkPlayer = (NetworkPlayer)transform.GetComponent("NetworkPlayer");
                 if ( null != networkPlayer )
                 {
                     networkPlayer.OnClickVoted(vote);
