@@ -138,6 +138,7 @@ namespace VRRoom
                 stream.SendNext(player.rotation);
                 stream.SendNext(playerCamera.localPosition);
                 stream.SendNext(playerCamera.localRotation);
+                stream.SendNext(this.gameObject.tag);
             }
             else
             {
@@ -147,6 +148,7 @@ namespace VRRoom
                 this.transform.rotation = (Quaternion)stream.ReceiveNext();
                 avatar.transform.localPosition = (Vector3)stream.ReceiveNext();
                 avatar.transform.localRotation = (Quaternion)stream.ReceiveNext();
+                this.gameObject.tag = (string)stream.ReceiveNext();
             }
         }
 
