@@ -7,6 +7,7 @@ namespace VRRoom
     {
         private int Yes_Voters = 0;
         private int No_Voters = 0;
+        private int Abstinence_Voters = 0;
         private int Amount_Voters = 0;
         private string Voting_Name;
 
@@ -20,6 +21,10 @@ namespace VRRoom
             if (Opinion == "no")
             {
                 No_Voters++;
+            } else
+            if (Opinion == "abstinence")
+            {
+                Abstinence_Voters++;
             }
         }
 
@@ -27,30 +32,26 @@ namespace VRRoom
         {
             Yes_Voters = 0;
             No_Voters = 0;
+            Abstinence_Voters = 0;
             Amount_Voters = 0;
             Voting_Name = name;
         }
 
-        public int Get_Voter_Count()
+        public string Get_Result()
         {
-            return Amount_Voters;
-        }
-
-        public void Get_Result()
-        {
-            Debug.Log("Result (Yes | No):  " + Yes_Voters + " | " + No_Voters);
+            return "Result (Yes | No | Abstinent):  " + Yes_Voters + " | " + No_Voters + " | " + Abstinence_Voters;
         }
 
         public void Save_Result()
         {
-            string Result = Voting_Name+": (Yes | No):  " + Yes_Voters + " | " + No_Voters;
-            Write_File(Result, "C:\\Users\\ronny_f6nb3z1\\Desktop\\Blackboard_Media\\"+Voting_Name+".txt");
+            string Result = Voting_Name + "\r\n " + Get_Result();
+            Write_File(Result, Application.dataPath + "/Abstimmungsergebnisse/" + Voting_Name+".txt");
         }
 
         private void Write_File(string path, string data)
         {
             //write text in file
-            StreamWriter writer = new StreamWriter(path, true);
+            StreamWriter writer = new StreamWriter(path, false);
             writer.WriteLine(data);
             writer.Close();
         }

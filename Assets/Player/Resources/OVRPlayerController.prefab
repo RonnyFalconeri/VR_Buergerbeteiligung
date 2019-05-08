@@ -406,9 +406,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 831575071}
-  - component: {fileID: 831575072}
+  - component: {fileID: 5867596936938027611}
+  - component: {fileID: 5672214865417186847}
   m_Layer: 0
-  m_Name: VotingHandler
+  m_Name: VotingSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -428,7 +429,7 @@ Transform:
   m_Father: {fileID: 8592815063178468433}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &831575072
+--- !u!114 &5867596936938027611
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -437,11 +438,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 831575070}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bef2fe1edc71fad4686818cc220bdfb6, type: 3}
+  m_Script: {fileID: 11500000, guid: ab067fdd01c15164a873520f74c8e469, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   toggleModMenu: {fileID: 700953286}
-  Field: {fileID: 1326916132}
+  inpTopic: {fileID: 1326916132}
+--- !u!114 &5672214865417186847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 831575070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1196070023
 GameObject:
   m_ObjectHideFlags: 0
@@ -936,8 +959,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 831575072}
-        m_MethodName: StartVoting
+      - m_Target: {fileID: 5867596936938027611}
+        m_MethodName: OnClickStartVoting
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5225,7 +5248,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 831575072}
+      objectReference: {fileID: 5867596936938027611}
     - target: {fileID: 6726111074458407642, guid: 2a14ed721d23440adb64533dd5af4e7a,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -5260,7 +5283,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 831575072}
+      objectReference: {fileID: 5867596936938027611}
     - target: {fileID: 6261083654210256741, guid: 2a14ed721d23440adb64533dd5af4e7a,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -5295,7 +5318,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 831575072}
+      objectReference: {fileID: 5867596936938027611}
     - target: {fileID: 7975328546869550142, guid: 2a14ed721d23440adb64533dd5af4e7a,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
