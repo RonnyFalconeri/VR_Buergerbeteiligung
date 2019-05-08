@@ -15,8 +15,8 @@ public class LoadImage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        FilePath = Application.dataPath + "/Blackboard_Media/" + Room + "/" + Name + ".jpg";
+        Debug.Log("Path: "+Application.streamingAssetsPath);
+        FilePath = Application.dataPath + "/StreamingAssets/Blackboard_Media/" + Room + "/" + Name + ".jpg";
 
         // if file exists, load the image
         if (File.Exists(FilePath))

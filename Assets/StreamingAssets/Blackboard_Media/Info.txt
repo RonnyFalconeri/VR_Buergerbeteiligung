@@ -1,0 +1,41 @@
+Um die Bilder auf den Blackboards zu ändern, muss man die gewünschten Bilder
+in den richtigen Ordner legen und diese dem Blackboard entsprechend benennen.
+
+	Achtung: Es werden erstmal nur .jpg Formate unterstützt.
+
+Es gibt folgende Ordner, die die verschiedenen Räume repräsentieren:
+
+	- Foyer
+	- Meeting
+	- Präsentation
+
+
+Richtige Benennung:
+
+Foyer ----------------------------------------
+
+		front.jpg
+
+	west3.jpg	east3.jpg
+
+	west2.jpg	east2.jpg
+
+	west1.jpg	east1.jpg
+
+		rear.jpg
+
+
+
+Meeting ----------------------------------------
+
+		main.jpg
+
+
+
+Präsentation ----------------------------------------
+
+		main.jpg
+
+	west.jpg	east.jpg
+
+		south.jpg
