@@ -53,27 +53,31 @@ namespace VRRoom
             }
         }
 
-        void Update()
+        public void OnClickVoted(string vote)
         {
-            // check for voting
-            if ( true == votingPossible )
-            {
-                if ( Input.GetKey("g") )
-                {
-                    SendVoteToModerator("yes");
-                }
-                else if ( Input.GetKey("h") )
-                {
-                    SendVoteToModerator("no");
-                }
-            }
-            if ( Input.GetKey("v") )
-            {
-                // remove old votings
-                // start rpc for new voting
-                PhotonNetwork.RemoveRPCs(PhotonNetwork.LocalPlayer);
-                this.photonView.RPC("OnVotingStarted", RpcTarget.AllBufferedViaServer, "Seid ihr dafür?");
-            }
+            SendVoteToModerator(vote);
+        }
+
+        public void OnClickStartVoting()
+        {
+            // called when moderator starts voting
+            // remove old votings before
+            PhotonNetwork.RemoveRPCs(PhotonNetwork.LocalPlayer);
+            // TODO get topic from input
+            string topic = "Seid ihr dafür?";
+            voteMaster.Create_New_Voting(topic);
+            this.photonView.RPC("OnVotingStarted", RpcTarget.OthersBuffered, topic);
+        }
+
+        public void OnClickFinishVoting()
+        {
+            // called when moderator finishes voting
+            // remove the vote RPC so new players don't get it anymore
+            PhotonNetwork.RemoveRPCs(PhotonNetwork.LocalPlayer);
+            this.photonView.RPC("OnVotingFinished", RpcTarget.Others);
+            // evaluate voting
+            voteMaster.Get_Result();
+            voteMaster.Save_Result();
         }
         
         public void SendVoteToModerator(string vote)
@@ -94,6 +98,12 @@ namespace VRRoom
         }
 
         [PunRPC]
+        public void OnVotingFinished()
+        {
+            votingPossible = false;
+        }
+
+        [PunRPC]
         public void OnVoted(string selection, PhotonMessageInfo info)
         {
             if ( isModerator )
@@ -101,12 +111,6 @@ namespace VRRoom
                 // only moderator evaluates the votes
                 Debug.Log(info.Sender.NickName + " voted for " + selection);
                 voteMaster.Vote(selection);
-                
-                if ( voteMaster.Get_Voter_Count() >= PhotonNetwork.CurrentRoom.PlayerCount)
-                {
-                    // everybody voted, so the voting is over.
-                    voteMaster.Get_Result();
-                }
             }
         }
 
