@@ -99,8 +99,12 @@ namespace VRRoom
             GameObject voteMenu = GameObject.Find("OVRPlayerController/Inworld_Vote");
             if (null != voteMenu)
             {
-                Debug.Log("voting menu found, will be opened");
-                voteMenu.SetActive(visible);
+                // trying to enable canvas
+                Canvas canvas = (Canvas)voteMenu.GetComponent("Canvas");
+                if ( null != canvas )
+                {
+                    canvas.enabled = visible;
+                }
             }
         }
 
