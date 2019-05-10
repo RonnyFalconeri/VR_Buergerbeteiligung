@@ -67,19 +67,19 @@ namespace VRRoom
             if (stream.IsWriting)
             {
                 // if we are writing, this is our own player
-                stream.SendNext(player.position);
-                stream.SendNext(player.rotation);
-                stream.SendNext(playerCamera.localPosition);
-                stream.SendNext(playerCamera.localRotation);
+                //stream.SendNext(player.position);
+                //stream.SendNext(player.rotation);
+                //stream.SendNext(playerCamera.localPosition);
+                //stream.SendNext(playerCamera.localRotation);
             }
             else
             {
                 // in reading mode, this refers to the related NetworkPlayer object
                 // this is not our own player, but every other player
-                this.transform.position = (Vector3)stream.ReceiveNext();
-                this.transform.rotation = (Quaternion)stream.ReceiveNext();
-                avatar.transform.localPosition = (Vector3)stream.ReceiveNext();
-                avatar.transform.localRotation = (Quaternion)stream.ReceiveNext();
+                //this.transform.position = (Vector3)stream.ReceiveNext();
+                //this.transform.rotation = (Quaternion)stream.ReceiveNext();
+                //avatar.transform.localPosition = (Vector3)stream.ReceiveNext();
+                //avatar.transform.localRotation = (Quaternion)stream.ReceiveNext();
             }
         }
     }
