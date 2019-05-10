@@ -34,7 +34,7 @@ namespace VRRoom
             {
                 second_string = "0" + second_string;
             }
-            clock.text = hour_string + ":" + minute_string + ":" + second_string;
+            clock.text = "Uhr: " + hour_string + ":" + minute_string + ":" + second_string;
         }
     }
 }
