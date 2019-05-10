@@ -1,29 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Photon.Pun;
-using UnityEngine;
+﻿using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine.UI;
 namespace VRRoom
 {
-    public class Participant_Count_ : MonoBehaviour
+    public class Participant_Count_ : MonoBehaviourPunCallbacks
     {
-        private int participants = 0;
         public Text participant_count;
 
-        // Start is called before the first frame update
-        void Start()
+        public void Start()
         {
-
+            participant_count.text = "Teilnehmer: " + PhotonNetwork.CurrentRoom.PlayerCount;
         }
 
-        // Update is called once per frame
-        void Update()
+        public override void OnPlayerEnteredRoom(Player newPlayer)
         {
-            participant_count.text = "Teilnehmer: " + participants;
-            if (Input.GetKeyDown(KeyCode.Plus))
-            {
-                participants = PhotonNetwork.CurrentRoom.PlayerCount;
-            }
+            // update player count
+            participant_count.text = "Teilnehmer: " + PhotonNetwork.CurrentRoom.PlayerCount;
+        }
+
+        public override void OnPlayerLeftRoom(Player otherPlayer)
+        {
+            // update player count
+            participant_count.text = "Teilnehmer: " + PhotonNetwork.CurrentRoom.PlayerCount;
         }
     }
 
