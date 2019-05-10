@@ -13,10 +13,14 @@ namespace VRRoom
         // Start is called before the first frame update
         void Start()
         {
+            Debug.Log("Player (phview " + this.photonView.ViewID + ") instantiated.");
             if ( 0 == SceneManagerHelper.ActiveSceneName.CompareTo("Presentation") )
             {
-                // don't show avatars in presentation (but moderator avatar gets reenabled)
-                avatar.SetActive(false);
+                if ( false == isMod )
+                {
+                    // don't show avatars in presentation (except moderator (set via RPC))
+                    avatar.SetActive(false);
+                }
             }
 
             if ( (photonView.IsMine) || (false == PhotonNetwork.IsConnected) )
