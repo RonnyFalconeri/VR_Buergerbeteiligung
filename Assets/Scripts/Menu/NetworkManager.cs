@@ -63,7 +63,7 @@ namespace VRRoom
         {
             PhotonNetwork.OfflineMode = false;
             PhotonNetwork.NickName = "anonymous";
-            PhotonNetwork.AutomaticallySyncScene = false;
+            PhotonNetwork.AutomaticallySyncScene = true;
             PhotonNetwork.GameVersion = "v1";
 
             isConnecting = true;
@@ -154,10 +154,9 @@ namespace VRRoom
             PhotonNetwork.CreateRoom("", roomOptions);
         }
 
-        // join room is called from RoomListEntry.cs
+        // This gets only called after creating a room, when just joining the scene is automatically synced.
         public override void OnJoinedRoom()
         {
-            bool roomEntered = false;
             isJoining = false;
             Debug.Log("Joined Room " + PhotonNetwork.CurrentRoom.Name + " (name:" + PhotonNetwork.CurrentRoom.CustomProperties["name"] + ") | Members online: " + PhotonNetwork.CurrentRoom.PlayerCount);
 
@@ -165,32 +164,19 @@ namespace VRRoom
             string roomType = (string)PhotonNetwork.CurrentRoom.CustomProperties["type"];
             switch (roomType)
             {
-                case "Präsentationsraum":
-                    UnityEngine.SceneManagement.SceneManager.LoadScene("Presentation");
-                    roomEntered = true;
-                    break;
-                case "Besprechungsraum":
-                    UnityEngine.SceneManagement.SceneManager.LoadScene("Meeting");
-                    roomEntered = true;
-                    break;
-                case "Foyer":
-                    UnityEngine.SceneManagement.SceneManager.LoadScene("Foyer");
-                    roomEntered = true;
-                    break;
-                default:
-                    Debug.Log("Error: Unknown Room type '" + roomType);
-                    PhotonNetwork.LeaveRoom();
-                    break;
-            }
-
-            if ( roomEntered )
-            {
-                menuManager.enableVR(true);
-                if ( PhotonNetwork.InLobby )
-                {
-                    // Leave Lobby to not receive unnecessary room updates
-                    PhotonNetwork.LeaveLobby();
-                }
+            case "Präsentationsraum":
+                UnityEngine.SceneManagement.SceneManager.LoadScene("Presentation");
+                break;
+            case "Besprechungsraum":
+                UnityEngine.SceneManagement.SceneManager.LoadScene("Meeting");
+                break;
+            case "Foyer":
+                UnityEngine.SceneManagement.SceneManager.LoadScene("Foyer");
+                break;
+            default:
+                Debug.Log("Error: Unknown Room type '" + roomType);
+                PhotonNetwork.LeaveRoom();
+                break;
             }
         }
 

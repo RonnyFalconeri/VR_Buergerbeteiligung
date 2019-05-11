@@ -13,6 +13,12 @@ namespace VRRoom
 
         void Start()
         {
+            if ( PhotonNetwork.InLobby )
+            {
+                // Leave Lobby to not receive unnecessary room updates
+                PhotonNetwork.LeaveLobby();
+            }
+
             // spawn own player on network (gets positioned in NetworkPlayer.cs)
             GameObject player = PhotonNetwork.Instantiate(playerPrefab.gameObject.name, Vector3.zero, Quaternion.identity);
         }

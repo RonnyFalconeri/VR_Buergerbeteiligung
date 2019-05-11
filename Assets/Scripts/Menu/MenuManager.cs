@@ -53,7 +53,7 @@ namespace VRRoom
         {
             switchToPanel("panelLobby");
             // disable VR for menu view
-            enableVR(false);
+            XRSettings.enabled = false;
             if ( alreadyRunning )
             {
                 // we just returned from a room
@@ -193,12 +193,6 @@ namespace VRRoom
             btnSwitchToLogin.interactable = isConnected;
             btnCreateRoom.interactable = isConnected;
             btnCreateRoom_Testing.interactable = isConnected; 
-        }
-
-        public void enableVR(bool enable)
-        {
-            Debug.Log("VR enabled: " + enable);
-            XRSettings.enabled = enable;
         }
     }
 }

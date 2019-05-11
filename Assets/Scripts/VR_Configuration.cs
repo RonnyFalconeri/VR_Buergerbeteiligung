@@ -26,14 +26,10 @@ public class VR_Configuration : MonoBehaviour
         controlables[2] = modVoteMenu;
         controlables[3] = eventSystem;
 
-        configureVRControlability();
-    }
+        Debug.Log("VR enabled: " + XRDevice.isPresent);
+        XRSettings.enabled = XRDevice.isPresent;
 
-    public void configureVRControlability()
-    {
-        bool enableVRcontrol = XRDevice.isPresent;
-
-        if ( false == enableVRcontrol )
+        if (false == XRDevice.isPresent)
         {
             // Enable cursor if no vr device is connected
             // Otherwise the user couldn't click on our fancy HUD menu :)
@@ -42,7 +38,14 @@ public class VR_Configuration : MonoBehaviour
         }
 
         // disable hands if no VR device connected (else we get spammed with error messages)
-        vrHands.SetActive(enableVRcontrol);
+        vrHands.SetActive(XRDevice.isPresent);
+
+        configureVRControlability();
+    }
+
+    public void configureVRControlability()
+    {
+        bool enableVRcontrol = XRDevice.isPresent;
 
         // configure whether elements shall be clicked by vr controlers or mouse
         foreach (GameObject controlable in controlables)
