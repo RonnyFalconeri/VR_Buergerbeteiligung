@@ -126,6 +126,16 @@ namespace VRRoom
         public void CreateRoom(string roomType, string roomName, int maxPlayers, bool isLoginRequired)
         {
             RoomOptions roomOptions = new RoomOptions();
+
+            if ( roomName.Equals("") )
+            {
+                roomName = "Raum ohne Namen";
+            }
+            if ( maxPlayers <= 0 )
+            {
+                maxPlayers = 20;
+            }
+
             roomOptions.MaxPlayers = (byte)maxPlayers;
 
             // create hashtable with room properties
