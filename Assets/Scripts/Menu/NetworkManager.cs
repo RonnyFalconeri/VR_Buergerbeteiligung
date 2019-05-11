@@ -49,6 +49,7 @@ namespace VRRoom
             }
             else
             {
+                alreadyRunning = true;
                 // establish server connection
                 ConnectToMaster();
             }
