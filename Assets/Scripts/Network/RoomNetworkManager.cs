@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
+using UnityEngine.XR;
 
 namespace VRRoom
 {
-    public class RoomManager : MonoBehaviourPunCallbacks
+    public class RoomNetworkManager : MonoBehaviourPunCallbacks
     {
         public GameObject playerPrefab;
 
@@ -15,10 +17,11 @@ namespace VRRoom
             GameObject player = PhotonNetwork.Instantiate(playerPrefab.gameObject.name, Vector3.zero, Quaternion.identity);
         }
 
-        // Update is called once per frame
-        void Update()
+        public override void OnDisconnected(DisconnectCause cause)
         {
-
+            Debug.Log(cause);
+            // go back to lobby
+            UnityEngine.SceneManagement.SceneManager.LoadScene("LobbyMenu");
         }
     }
 }

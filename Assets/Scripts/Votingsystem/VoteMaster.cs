@@ -3,7 +3,7 @@ using System.IO;
 
 namespace VRRoom
 {
-    public class VoteMaster : MonoBehaviour
+    public class VoteMaster
     {
         private int Yes_Voters = 0;
         private int No_Voters = 0;
