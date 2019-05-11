@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -45,18 +46,29 @@ namespace VRRoom
         public AccountManager accountManager;
         public NetworkManager networkManager;
 
+        private static bool alreadyRunning = false;
+
         // Start is called before the first frame update
         void Start()
         {
             switchToPanel("panelLobby");
             // disable VR for menu view
             enableVR(false);
-        }
+            if ( alreadyRunning )
+            {
+                // we just returned from a room
+                OnServerConnStateChanged(false, PhotonNetwork.IsConnected);
 
-        // Update is called once per frame
-        void Update()
-        {
-
+                UserData userdata = new UserData();
+                userdata.isModerator = (bool)PhotonNetwork.LocalPlayer.CustomProperties["isMod"];
+                userdata.name = PhotonNetwork.LocalPlayer.NickName;
+                userdata.avatar = (string)PhotonNetwork.LocalPlayer.CustomProperties["avatar"];
+                OnUserLoggedIn(userdata);
+            }
+            else
+            {
+                alreadyRunning = true;
+            }
         }
 
         public void OnClickSwitchToCreateRoom()
@@ -185,6 +197,7 @@ namespace VRRoom
 
         public void enableVR(bool enable)
         {
+            Debug.Log("VR enabled: " + enable);
             XRSettings.enabled = enable;
         }
     }

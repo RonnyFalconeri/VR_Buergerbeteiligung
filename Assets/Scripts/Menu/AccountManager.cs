@@ -24,12 +24,30 @@ namespace VRRoom
 
         private UserData userdata;
 
+        private static bool alreadyRunning = false;
+
         // Start is called before the first frame update
         void Start()
         {
             roomNameAfterLogin = "";
             userdata = new UserData();
             isLoggedIn = false;
+
+            if (alreadyRunning)
+            {
+                // we just returned from a room
+                if ( false == PhotonNetwork.LocalPlayer.NickName.Equals("anonymous") )
+                {
+                    isLoggedIn = true;
+                    userdata.isModerator = (bool)PhotonNetwork.LocalPlayer.CustomProperties["isMod"];
+                    userdata.name = PhotonNetwork.LocalPlayer.NickName;
+                    userdata.avatar = (string)PhotonNetwork.LocalPlayer.CustomProperties["avatar"];
+                }
+            }
+            else
+            {
+                alreadyRunning = true;
+            }
         }
 
         // Update is called once per frame

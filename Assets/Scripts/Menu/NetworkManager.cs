@@ -26,6 +26,8 @@ namespace VRRoom
         private Dictionary<string, RoomInfo> cachedRoomList;
         private Dictionary<string, GameObject> roomListEntries;
 
+        private static bool alreadyRunning = false;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -35,8 +37,21 @@ namespace VRRoom
             isConnected = false;
             isJoining = false;
 
-            // establish server connection
-            ConnectToMaster();
+            if ( alreadyRunning )
+            {
+                // room left, so we're back in lobby
+                if (false == PhotonNetwork.InLobby)
+                {
+                    Debug.Log("Joined default lobby.");
+                    PhotonNetwork.JoinLobby();
+                }
+                isConnected = PhotonNetwork.IsConnected;
+            }
+            else
+            {
+                // establish server connection
+                ConnectToMaster();
+            }
         }
 
         // Update is called once per frame
@@ -47,8 +62,8 @@ namespace VRRoom
         public void ConnectToMaster()
         {
             PhotonNetwork.OfflineMode = false;
-            PhotonNetwork.NickName = "default";
-            PhotonNetwork.AutomaticallySyncScene = true;
+            PhotonNetwork.NickName = "anonymous";
+            PhotonNetwork.AutomaticallySyncScene = false;
             PhotonNetwork.GameVersion = "v1";
 
             isConnecting = true;
@@ -58,19 +73,18 @@ namespace VRRoom
 
         public override void OnDisconnected(DisconnectCause cause)
         {
-            base.OnDisconnected(cause);
             Debug.Log(cause);
-
             isConnecting = false;
             isConnected = false;
             menuManager.OnServerConnStateChanged(isConnecting, isConnected);
             menuManager.switchToPanel("panelLobby");
             accountManager.Logout();
+            cachedRoomList.Clear();
+            ClearRoomListView();
         }
 
         public override void OnConnectedToMaster()
         {
-            base.OnConnectedToMaster();
             isConnecting = false;
             isConnected = true;
             menuManager.OnServerConnStateChanged(isConnecting, isConnected);
@@ -91,6 +105,13 @@ namespace VRRoom
             updateUserData(userdata);
         }
 
+        public override void OnLeftLobby()
+        {
+            // lobby is left when joining a room
+            cachedRoomList.Clear();
+            ClearRoomListView();
+        }
+
         public override void OnRoomListUpdate(List<RoomInfo> roomList)
         {
             base.OnRoomListUpdate(roomList);
@@ -100,11 +121,7 @@ namespace VRRoom
             UpdateRoomListView();
         }
 
-        public override void OnLeftLobby()
-        {
-            cachedRoomList.Clear();
-            ClearRoomListView();
-        }
+        
 
         public void CreateRoom(string roomType, string roomName, int maxPlayers, bool isLoginRequired)
         {
@@ -132,28 +149,29 @@ namespace VRRoom
         {
             bool roomEntered = false;
             isJoining = false;
-            Debug.Log("Joined Room " + PhotonNetwork.CurrentRoom.Name + " | Master: " + PhotonNetwork.IsMasterClient + " | Members online: " + PhotonNetwork.CurrentRoom.PlayerCount);
+            Debug.Log("Joined Room " + PhotonNetwork.CurrentRoom.Name + " (name:" + PhotonNetwork.CurrentRoom.CustomProperties["name"] + ") | Members online: " + PhotonNetwork.CurrentRoom.PlayerCount);
+
             // get room type and load related scene
             string roomType = (string)PhotonNetwork.CurrentRoom.CustomProperties["type"];
             switch (roomType)
             {
-            case "Präsentationsraum":
-                UnityEngine.SceneManagement.SceneManager.LoadScene("Presentation");
-                roomEntered = true;
-                break;
-            case "Besprechungsraum":
-                UnityEngine.SceneManagement.SceneManager.LoadScene("Meeting");
-                roomEntered = true;
-                break;
-            case "Foyer":
-                UnityEngine.SceneManagement.SceneManager.LoadScene("Foyer");
-                roomEntered = true;
-                break;
-            default:
-                Debug.Log("Error: Unknown Room type '" + roomType);
-                PhotonNetwork.LeaveRoom();
-                break;
-            }      
+                case "Präsentationsraum":
+                    UnityEngine.SceneManagement.SceneManager.LoadScene("Presentation");
+                    roomEntered = true;
+                    break;
+                case "Besprechungsraum":
+                    UnityEngine.SceneManagement.SceneManager.LoadScene("Meeting");
+                    roomEntered = true;
+                    break;
+                case "Foyer":
+                    UnityEngine.SceneManagement.SceneManager.LoadScene("Foyer");
+                    roomEntered = true;
+                    break;
+                default:
+                    Debug.Log("Error: Unknown Room type '" + roomType);
+                    PhotonNetwork.LeaveRoom();
+                    break;
+            }
 
             if ( roomEntered )
             {
