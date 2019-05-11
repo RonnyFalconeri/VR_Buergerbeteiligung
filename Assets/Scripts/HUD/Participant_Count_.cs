@@ -9,7 +9,12 @@ namespace VRRoom
 
         public void Start()
         {
-            participant_count.text = "Teilnehmer: " + PhotonNetwork.CurrentRoom.PlayerCount;
+            int count = 0;
+            if ( PhotonNetwork.IsConnected )
+            {
+                count = PhotonNetwork.CurrentRoom.PlayerCount;
+            }
+            participant_count.text = "Teilnehmer: " + count;
         }
 
         public override void OnPlayerEnteredRoom(Player newPlayer)
