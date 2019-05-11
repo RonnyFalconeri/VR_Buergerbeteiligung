@@ -17,17 +17,10 @@ namespace VRRoom
             musicAudio = (AudioSource)player.GetComponent("AudioSource");
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
         public void VolumeController()
         {
+            // Gets called for every slider movement
             musicAudio.volume = volumeSlider.value;
-
-
         }
     }
 }

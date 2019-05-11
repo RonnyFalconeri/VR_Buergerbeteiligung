@@ -33,6 +33,15 @@ public class VR_Configuration : MonoBehaviour
     {
         bool enableVRcontrol = XRDevice.isPresent;
 
+        if ( false == enableVRcontrol )
+        {
+            // Enable cursor if no vr device is connected
+            // Otherwise the user couldn't click on our fancy HUD menu :)
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+
+        // disable hands if no VR device connected (else we get spammed with error messages)
         vrHands.SetActive(enableVRcontrol);
 
         // configure whether elements shall be clicked by vr controlers or mouse
