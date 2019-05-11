@@ -38,23 +38,26 @@ namespace VRRoom
                 // disable avatar for own player so it doesnt disturb the view
                 avatar.SetActive(false);
 
-                if ( false == (bool)PhotonNetwork.LocalPlayer.CustomProperties["isMod"])
+                if ( PhotonNetwork.IsConnected )
                 {
-                    if ( (player != null) && (0 == SceneManagerHelper.ActiveSceneName.CompareTo("Presentation")) )
+                    if (false == (bool)PhotonNetwork.LocalPlayer.CustomProperties["isMod"])
                     {
-                        // in presentation room, disable movement for all non mods
-                        OVRPlayerController controller = (OVRPlayerController)player.GetComponent("OVRPlayerController");
-                        if ( null != controller )
+                        if ((player != null) && (0 == SceneManagerHelper.ActiveSceneName.CompareTo("Presentation")))
                         {
-                            controller.EnableLinearMovement = false;
+                            // in presentation room, disable movement for all non mods
+                            OVRPlayerController controller = (OVRPlayerController)player.GetComponent("OVRPlayerController");
+                            if (null != controller)
+                            {
+                                controller.EnableLinearMovement = false;
+                            }
                         }
                     }
-                }
-                else
-                {
-                    // notify others about moderator state
-                    isMod = true;
-                    this.photonView.RPC("MarkAsModerator", RpcTarget.OthersBuffered);
+                    else
+                    {
+                        // notify others about moderator state
+                        isMod = true;
+                        this.photonView.RPC("MarkAsModerator", RpcTarget.OthersBuffered);
+                    }
                 }
             }
         }
