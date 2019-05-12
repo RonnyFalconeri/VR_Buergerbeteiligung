@@ -58,34 +58,35 @@ namespace VRRoom
 
         private void Move_player_to_position(string Position)
         {
-            if(Position == "main")
+            Vector3 Position_vector = new Vector3(0,0,0);
+
+            if (Position == "main")
             {
-                Vector3 Position_vector = MainPosition.transform.position;  // Store Position as Vector3
-                Player.transform.position = Position_vector;  // Move player to MainPosition
+                Position_vector = MainPosition.transform.position;  // Store Position as Vector3
                 Player.transform.rotation = Quaternion.Euler(new Vector3(0, -90, 0));  // Rotate player view to main
 
             } else
             if (Position == "east")
             {
-                Vector3 Position_vector = EastPosition.transform.position;  // Store Position as Vector3
-                Player.transform.position = Position_vector;  // Move player to EastPosition
+                Position_vector = EastPosition.transform.position;  // Store Position as Vector3
                 Player.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));  // Rotate player view to east
 
             } else
             if (Position == "west")
             {
-                Vector3 Position_vector = WestPosition.transform.position;  // Store Position as Vector3
-                Player.transform.position = Position_vector;  // Move player to WestPosition
+                Position_vector = WestPosition.transform.position;  // Store Position as Vector3
                 Player.transform.rotation = Quaternion.Euler(new Vector3(0, -180, 0));  // Rotate player view to west
 
             } else
             if (Position == "south")
             {
-                Vector3 Position_vector = SouthPosition.transform.position;  // Store Position as Vector3
-                Player.transform.position = Position_vector;  // Move player to SouthPosition
+                Position_vector = SouthPosition.transform.position;  // Store Position as Vector3
                 Player.transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));  // Rotate player view to south
 
             }
+
+            Position_vector.y = 4.5f;
+            Player.transform.position = Position_vector;
 
         }
     }
