@@ -36,5 +36,6 @@ MonoBehaviour:
   - OnVotingStarted
   - OnVotingFinished
   - MarkAsModerator
+  - SetUsername
   DisableAutoOpenWizard: 1
   ShowSettings: 0
