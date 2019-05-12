@@ -41,21 +41,6 @@ namespace VRRoom
                     current = walk;
                     animator.SetInteger("state", walk);
                 }
-                else if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
-                {
-                    current = walk;
-                    animator.SetInteger("state", walk);
-                }
-                else if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
-                {
-                    current = walk;
-                    animator.SetInteger("state", walk);
-                }
-                else if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
-                {
-                    current = walk;
-                    animator.SetInteger("state", walk);
-                }
                 else
                 {
                     current = idle;
