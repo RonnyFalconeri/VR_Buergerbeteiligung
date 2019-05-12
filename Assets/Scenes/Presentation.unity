@@ -44,7 +44,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 1
+  m_GIWorkflowMode: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -14530,16 +14530,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6503994315862817346, guid: 9ae60eacad7c7ee4c8a2fc49d1a675fc,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.002
-      objectReference: {fileID: 0}
     - target: {fileID: 6503994314306275439, guid: 9ae60eacad7c7ee4c8a2fc49d1a675fc,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 6aff29e9d4ef39a40a2a2c90afda3531, type: 2}
+    - target: {fileID: 6503994315862817346, guid: 9ae60eacad7c7ee4c8a2fc49d1a675fc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.002
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ae60eacad7c7ee4c8a2fc49d1a675fc, type: 3}
 --- !u!4 &6503994315114107719 stripped
