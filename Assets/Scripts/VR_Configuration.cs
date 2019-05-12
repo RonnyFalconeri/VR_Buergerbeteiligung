@@ -39,6 +39,14 @@ public class VR_Configuration : MonoBehaviour
 
         // disable hands if no VR device connected (else we get spammed with error messages)
         vrHands.SetActive(XRDevice.isPresent);
+        if ( false == XRDevice.isPresent )
+        {
+            GameObject avatarMng = GameObject.Find("OvrAvatarSDKManager");
+            if (null != avatarMng)
+            {
+                avatarMng.SetActive(false);
+            }
+        }
 
         configureVRControlability();
     }
