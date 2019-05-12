@@ -59,11 +59,14 @@ namespace VRRoom
                 // we just returned from a room
                 OnServerConnStateChanged(false, PhotonNetwork.IsConnected);
 
-                UserData userdata = new UserData();
-                userdata.isModerator = (bool)PhotonNetwork.LocalPlayer.CustomProperties["isMod"];
-                userdata.name = PhotonNetwork.LocalPlayer.NickName;
-                userdata.avatar = (string)PhotonNetwork.LocalPlayer.CustomProperties["avatar"];
-                OnUserLoggedIn(userdata);
+                if ( false == PhotonNetwork.LocalPlayer.NickName.Equals("anonymous") )
+                {
+                    UserData userdata = new UserData();
+                    userdata.isModerator = (bool)PhotonNetwork.LocalPlayer.CustomProperties["isMod"];
+                    userdata.name = PhotonNetwork.LocalPlayer.NickName;
+                    userdata.avatar = (string)PhotonNetwork.LocalPlayer.CustomProperties["avatar"];
+                    OnUserLoggedIn(userdata);
+                }
             }
             else
             {

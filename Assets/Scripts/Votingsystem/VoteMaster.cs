@@ -39,13 +39,16 @@ namespace VRRoom
 
         public string Get_Result()
         {
-            return "Result (Yes | No | Abstinent):  " + Yes_Voters + " | " + No_Voters + " | " + Abstinence_Voters;
+            return "Ergebnis: (Ja | Nein | Enthaltung):  " + Yes_Voters + " | " + No_Voters + " | " + Abstinence_Voters;
         }
 
         public void Save_Result()
         {
-            string Result = Voting_Name + "\r\n " + Get_Result();
-            Write_File(Result, Application.dataPath + "/Abstimmungsergebnisse/" + Voting_Name+".txt");
+            string Result = "Abstimmung \"" + Voting_Name + "\":\r\n\r\n" + Get_Result();
+            string path = (Application.dataPath + "/Abstimmungsergebnisse/");
+            System.IO.Directory.CreateDirectory(path);
+
+            Write_File((path + Voting_Name + ".txt"), Result);
         }
 
         private void Write_File(string path, string data)

@@ -5,6 +5,8 @@ namespace VRRoom
 {
     public class VotingManager : MonoBehaviourPun
     {
+        public GameObject startButton;
+        public GameObject stopButton;
         public Toggle toggleModMenu;
         public InputField inpTopic;
         private VoteMaster votingSystem;
@@ -20,6 +22,7 @@ namespace VRRoom
                     toggleModMenu.gameObject.SetActive(true);
                 }
             }
+            stopButton.SetActive(false);
         }
 
         public void OnClickStartVoting()
@@ -31,6 +34,8 @@ namespace VRRoom
             votingSystem.Create_New_Voting(topic);
             Debug.Log("transmit voting to players now");
             this.photonView.RPC("OnVotingStarted", RpcTarget.OthersBuffered, topic);
+            startButton.SetActive(false);
+            stopButton.SetActive(true);
         }
 
         public void OnClickFinishVoting()
@@ -38,6 +43,9 @@ namespace VRRoom
             // remove the vote RPC so new players don't get it anymore
             PhotonNetwork.RemoveRPCs(PhotonNetwork.LocalPlayer);
             this.photonView.RPC("OnVotingFinished", RpcTarget.Others);
+            startButton.SetActive(true);
+            stopButton.SetActive(false);
+
             // evaluate voting
             Debug.Log(votingSystem.Get_Result());
             votingSystem.Save_Result();
