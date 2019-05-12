@@ -34,24 +34,24 @@ namespace VRRoom
         void Update()
         {
             // Only control our own avatar
-            if ( isMyAvatar )
+            if (isMyAvatar)
             {
-                if (Input.GetKey("w"))
+                if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
                 {
                     current = walk;
                     animator.SetInteger("state", walk);
                 }
-                else if (Input.GetKey("a"))
+                else if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
                 {
                     current = walk;
                     animator.SetInteger("state", walk);
                 }
-                else if (Input.GetKey("s"))
+                else if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
                 {
                     current = walk;
                     animator.SetInteger("state", walk);
                 }
-                else if (Input.GetKey("d"))
+                else if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
                 {
                     current = walk;
                     animator.SetInteger("state", walk);
