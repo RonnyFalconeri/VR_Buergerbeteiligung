@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,7 @@ namespace VRRoom
 {
     public class NetworkPlayer : MonoBehaviourPun
     {
+        public TMP_Text lblUsername;
         public GameObject avatar;
 
         bool isMod = false;
@@ -58,6 +60,7 @@ namespace VRRoom
                         isMod = true;
                         this.photonView.RPC("MarkAsModerator", RpcTarget.OthersBuffered);
                     }
+                    this.photonView.RPC("SetUsername", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName);
                 }
             }
         }
@@ -67,6 +70,12 @@ namespace VRRoom
         {
             isMod = true;
             avatar.SetActive(true);
+        }
+
+        [PunRPC]
+        public void SetUsername(string username)
+        {
+            lblUsername.text = username;
         }
     }
 }
