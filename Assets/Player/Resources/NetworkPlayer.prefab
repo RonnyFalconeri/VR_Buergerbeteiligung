@@ -183,6 +183,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: e551454d32fa2684d888f61d75774d00, type: 2}
+    - target: {fileID: 95959441731132670, guid: d114356fbca98b441817a460d0ce759e,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4622590005229668, guid: d114356fbca98b441817a460d0ce759e, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0.49900618
