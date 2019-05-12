@@ -5,22 +5,28 @@ namespace VRRoom
 {
     public class AvatarAnimation : MonoBehaviourPun, IPunObservable
     {
+        public GameObject avatar;
         private Animator animator;
         private int idle = 0;
         private int walk = 1;
         private int current = 0;
-        private bool isMyAvatar = true;
+        private bool isMyAvatar = false;
 
         // Use this for initialization
         void Start()
         {
-            animator = GetComponent<Animator>();
+            animator = avatar.GetComponent<Animator>();
             if ( PhotonNetwork.IsConnected )
             {
                 if ( photonView.IsMine )
                 {
                     isMyAvatar = true;
                 }
+            }
+            else
+            {
+                // Then it's definetly our avatar
+                isMyAvatar = true;
             }
         }
 
@@ -60,6 +66,7 @@ namespace VRRoom
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
+            // transmit animation state
             if (stream.IsWriting)
             {
                 stream.SendNext(current);
