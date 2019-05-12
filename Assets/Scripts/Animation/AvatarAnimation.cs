@@ -1,39 +1,74 @@
-﻿using UnityEngine;
+﻿using Photon.Pun;
+using UnityEngine;
 
-public class AvatarAnimation : MonoBehaviour
+namespace VRRoom
 {
-    private Animator animator;
-    int idle = 0;
-    int walk = 1;
-
-    // Use this for initialization
-    void Start()
+    public class AvatarAnimation : MonoBehaviourPun, IPunObservable
     {
-        animator = GetComponent<Animator>();
-    }
+        private Animator animator;
+        private int idle = 0;
+        private int walk = 1;
+        private int current = 0;
+        private bool isMyAvatar = true;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKey("w"))
+        // Use this for initialization
+        void Start()
         {
-            animator.SetInteger("state", walk);
+            animator = GetComponent<Animator>();
+            if ( PhotonNetwork.IsConnected )
+            {
+                if ( photonView.IsMine )
+                {
+                    isMyAvatar = true;
+                }
+            }
         }
-        else if (Input.GetKey("a"))
+
+        // Update is called once per frame
+        void Update()
         {
-            animator.SetInteger("state", walk);
+            // Only control our own avatar
+            if ( isMyAvatar )
+            {
+                if (Input.GetKey("w"))
+                {
+                    current = walk;
+                    animator.SetInteger("state", walk);
+                }
+                else if (Input.GetKey("a"))
+                {
+                    current = walk;
+                    animator.SetInteger("state", walk);
+                }
+                else if (Input.GetKey("s"))
+                {
+                    current = walk;
+                    animator.SetInteger("state", walk);
+                }
+                else if (Input.GetKey("d"))
+                {
+                    current = walk;
+                    animator.SetInteger("state", walk);
+                }
+                else
+                {
+                    current = idle;
+                    animator.SetInteger("state", idle);
+                }
+            }
         }
-        else if (Input.GetKey("s"))
+
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
-            animator.SetInteger("state", walk);
-        }
-        else if (Input.GetKey("d"))
-        {
-            animator.SetInteger("state", walk);
-        }
-        else
-        {
-            animator.SetInteger("state", idle);
+            if (stream.IsWriting)
+            {
+                stream.SendNext(current);
+            }
+            else
+            {
+                int current = (int)stream.ReceiveNext();
+                animator.SetInteger("state", current);
+            }
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace VRRoom
 {
-    public class NetworkPlayer : MonoBehaviourPun, IPunObservable
+    public class NetworkPlayer : MonoBehaviourPun
     {
         public GameObject avatar;
 
@@ -67,23 +67,6 @@ namespace VRRoom
         {
             isMod = true;
             avatar.SetActive(true);
-        }
-
-        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-        {
-            if (stream.IsWriting)
-            {
-                // if we are writing, this is our own player
-                //stream.SendNext(player.position);
-                //stream.SendNext(player.rotation);
-            }
-            else
-            {
-                // in reading mode, this refers to the related NetworkPlayer object
-                // this is not our own player, but every other player
-                //this.transform.position = (Vector3)stream.ReceiveNext();
-                //this.transform.rotation = (Quaternion)stream.ReceiveNext();
-            }
         }
     }
 }
