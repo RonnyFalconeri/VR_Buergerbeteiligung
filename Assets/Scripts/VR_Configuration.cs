@@ -32,6 +32,13 @@ public class VR_Configuration : MonoBehaviour
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }
+        else
+        {
+            Debug.Log("deactivate mosue");
+            Transform player = GameObject.Find("OVRPlayerController").transform;
+            OVRPlayerController controller = (OVRPlayerController)player.GetComponent("OVRPlayerController");
+            controller.SetSkipMouseRotation(true);
+        }
 
         // disable hands if no VR device connected (else we get spammed with error messages)
         vrHands.SetActive(XRDevice.isPresent);
