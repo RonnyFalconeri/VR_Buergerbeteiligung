@@ -7,25 +7,21 @@ using UnityEngine.XR;
 
 public class VR_Configuration : MonoBehaviour
 {
-    public GameObject hud;
-    public GameObject gameMenu;
-    public GameObject modVoteMenu;
-    public GameObject voteMenu;
+    public GameObject hudvr;
+    public GameObject hudmouse;
+    public GameObject gameMenuvr;
+    public GameObject gameMenumouse;
+    public GameObject modVoteMenuvr;
+    public GameObject modVoteMenumouse;
+    public GameObject voteMenuvr;
+    public GameObject voteMenumouse;
 
     public GameObject eventSystem;
     public GameObject vrHands;
 
-    private GameObject[] controlables;
-
     // Start is called before the first frame update
     void Start()
     {
-        controlables = new GameObject[4];
-        controlables[0] = hud;
-        controlables[1] = gameMenu;
-        controlables[2] = modVoteMenu;
-        controlables[3] = eventSystem;
-
         Debug.Log("VR enabled: " + XRDevice.isPresent);
         XRSettings.enabled = XRDevice.isPresent;
 
@@ -56,21 +52,14 @@ public class VR_Configuration : MonoBehaviour
         bool enableVRcontrol = XRDevice.isPresent;
 
         // configure whether elements shall be clicked by vr controlers or mouse
-        foreach (GameObject controlable in controlables)
-        {
-            // I don't know why but this OVRRaycaster is never found...But it's no big problem.
-            // We just leave it enabled, because it doesn't disturb mouse control (just the other way around)
-            ControllerSelection.OVRRaycaster vrray = (ControllerSelection.OVRRaycaster)controlable.GetComponent("OVR Raycaster");
-            if ( null != vrray )
-            {
-                vrray.enabled = enableVRcontrol;
-            }
-            GraphicRaycaster mouseRay = (GraphicRaycaster)controlable.GetComponent("GraphicRaycaster");
-            if (null != mouseRay)
-            {
-                mouseRay.enabled = !enableVRcontrol;
-            }
-        }
+        hudvr.SetActive(enableVRcontrol);
+        hudmouse.SetActive(!enableVRcontrol);
+        gameMenuvr.SetActive(enableVRcontrol);
+        gameMenumouse.SetActive(!enableVRcontrol);
+        modVoteMenuvr.SetActive(enableVRcontrol);
+        modVoteMenumouse.SetActive(!enableVRcontrol);
+        voteMenuvr.SetActive(enableVRcontrol);
+        voteMenumouse.SetActive(!enableVRcontrol);
 
         StandaloneInputModule mouseInput = (StandaloneInputModule)eventSystem.GetComponent("StandaloneInputModule");
         if ( null != mouseInput )

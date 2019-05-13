@@ -1,14 +1,20 @@
 ﻿using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR;
+
 namespace VRRoom
 {
     public class VotingManager : MonoBehaviourPun
     {
         public GameObject startButton;
+        public GameObject startButtonvr;
         public GameObject stopButton;
+        public GameObject stopButtonvr;
         public Toggle toggleModMenu;
+        public Toggle toggleModMenuvr;
         public InputField inpTopic;
+        public InputField inpTopicvr;
         private VoteMaster votingSystem;
 
         void Start()
@@ -18,24 +24,40 @@ namespace VRRoom
             {
                 if ( (bool)PhotonNetwork.LocalPlayer.CustomProperties["isMod"] )
                 {
-                    // activate moderator menu for...moderator
-                    toggleModMenu.gameObject.SetActive(true);
+                    if (XRDevice.isPresent)
+                    {
+                        // activate moderator menu for...moderator
+                        toggleModMenuvr.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        // activate moderator menu for...moderator
+                        toggleModMenu.gameObject.SetActive(true);
+                    }    
                 }
             }
-            stopButton.SetActive(false);
+            toggleButtons(false);
         }
 
         public void OnClickStartVoting()
         {
-            string topic = inpTopic.text;
+            string topic = "";
+
+            if (XRDevice.isPresent)
+            {
+                topic = inpTopicvr.text;
+            }
+            else
+            {
+                topic = inpTopic.text;
+            }
 
             // remove old voting before
             PhotonNetwork.RemoveRPCs(PhotonNetwork.LocalPlayer);
             votingSystem.Create_New_Voting(topic);
             Debug.Log("transmit voting to players now");
             this.photonView.RPC("OnVotingStarted", RpcTarget.OthersBuffered, topic);
-            startButton.SetActive(false);
-            stopButton.SetActive(true);
+            toggleButtons(true);
         }
 
         public void OnClickFinishVoting()
@@ -43,8 +65,7 @@ namespace VRRoom
             // remove the vote RPC so new players don't get it anymore
             PhotonNetwork.RemoveRPCs(PhotonNetwork.LocalPlayer);
             this.photonView.RPC("OnVotingFinished", RpcTarget.Others);
-            startButton.SetActive(true);
-            stopButton.SetActive(false);
+            toggleButtons(false);
 
             // evaluate voting
             Debug.Log(votingSystem.Get_Result());
@@ -56,6 +77,20 @@ namespace VRRoom
             // vote is send to all players, but only moderator evaluates
             this.photonView.RPC("OnVoted", RpcTarget.AllViaServer, vote);
             ToggleVotingMenu(false, "");
+        }
+
+        public void toggleButtons(bool started)
+        {
+            if (XRDevice.isPresent)
+            {
+                startButtonvr.SetActive(!started);
+                stopButtonvr.SetActive(started);
+            }
+            else
+            {
+                startButton.SetActive(!started);
+                stopButton.SetActive(started);
+            }
         }
         
 
@@ -87,6 +122,15 @@ namespace VRRoom
         private void ToggleVotingMenu(bool visible, string request)
         {
             GameObject voteMenu = GameObject.Find("OVRPlayerController/Inworld_Vote");
+            if ( XRDevice.isPresent )
+            {
+                voteMenu = GameObject.Find("OVRPlayerController/Inworld_Vote_vr");
+            }
+            else
+            {
+                voteMenu = GameObject.Find("OVRPlayerController/Inworld_Vote");
+            }
+
             if (null != voteMenu)
             {
                 // trying to enable canvas
